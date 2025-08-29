@@ -1,0 +1,75 @@
+name: kangaroom
+description: "A new Flutter project."
+
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.9+13
+
+environment:
+  sdk: ">=3.2.6 <4.0.0"
+
+dependencies:
+  blurhash: ^1.2.0
+  flutter:
+    sdk: flutter
+  cached_network_image: ^3.4.1
+  file_picker: ^10.2.1
+  shared_preferences: ^2.5.3
+  flutter_spinkit: ^5.2.1
+  open_file: ^3.5.10
+  path_provider: ^2.1.5
+  fluttertoast: ^8.2.12
+  easy_url_launcher: ^0.0.7
+  syncfusion_flutter_pdfviewer: ^30.1.42
+  cupertino_icons: ^1.0.2
+  google_fonts: ^6.3.0
+  image_picker: ^1.1.2
+  motion_tab_bar: ^2.0.4
+  font_awesome_flutter: ^10.9.0
+  scrollable_positioned_list: ^0.3.8
+  fl_chart: ^0.68.0
+  table_calendar: ^3.1.2
+  dio: ^5.8.0+1
+  http: ^1.4.0
+  intl: ^0.20.2 #local  verileri başlatmak için intl kütüphanesi
+
+  flutter_localization: ^0.3.3
+  translator: ^1.0.3+1
+  firebase_core: ^4.0.0
+  firebase_messaging: ^16.0.0
+  googleapis_auth: ^2.0.0
+  video_player: ^2.10.0
+  photo_view: ^0.15.0
+  permission_handler: ^12.0.1
+  saver_gallery: ^4.0.1
+  another_flushbar: ^1.12.30
+  webview_flutter: ^4.13.0
+  wechat_assets_picker: ^9.0.0
+  
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  url_launcher: ^6.3.2
+  flutter_lints: ^6.0.0
+  intl_utils: ^2.8.7
+flutter:
+  generate: true # Enable localization code generation
+  uses-material-design: true
+
+  assets:
+    - assets/kurumsal/
+    - assets/icon/
+    - assets/images/
+    - assets/firebase/kangarom-cf7dc-firebase-adminsdk-ytf2m-5b939011a6.json
+    - assets/firebase/kangaroomogretmen-firebase-adminsdk-civvf-ed84febc03.json
+  fonts:
+    - family: Playwrite AU VIC
+      fonts:
+        - asset: assets/fonts/PlaywriteAUVIC-VariableFont_wght.ttf
+    - family: Caveat
+      fonts:
+        - asset: assets/fonts/Caveat-VariableFont_wght.ttf
+
+    - family: Social
+      fonts:
+        - asset: assets/fonts/PlaywriteAT-VariableFont_wght.ttf
