@@ -3,7 +3,7 @@ description: "A new Flutter project."
 
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
-version: 1.0.9+13
+version: 1.0.11+15
 
 environment:
   sdk: ">=3.2.6 <4.0.0"
@@ -45,13 +45,14 @@ dependencies:
   another_flushbar: ^1.12.30
   webview_flutter: ^4.13.0
   wechat_assets_picker: ^9.0.0
-  
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
   url_launcher: ^6.3.2
   flutter_lints: ^6.0.0
   intl_utils: ^2.8.7
+  flutter_launcher_icons: ^0.13.1
 flutter:
   generate: true # Enable localization code generation
   uses-material-design: true
@@ -60,8 +61,8 @@ flutter:
     - assets/kurumsal/
     - assets/icon/
     - assets/images/
-    - assets/firebase/kangarom-cf7dc-firebase-adminsdk-ytf2m-5b939011a6.json
-    - assets/firebase/kangaroomogretmen-firebase-adminsdk-civvf-ed84febc03.json
+    - assets/data/
+    - assets/firebase/
   fonts:
     - family: Playwrite AU VIC
       fonts:
@@ -73,3 +74,9 @@ flutter:
     - family: Social
       fonts:
         - asset: assets/fonts/PlaywriteAT-VariableFont_wght.ttf
+
+# Flutter Launcher Icons Configuration
+flutter_launcher_icons:
+  android: "launcher_icon"
+  image_path: "assets/app_icon/KangaroomLogo.png"
+  min_sdk_android: 21
