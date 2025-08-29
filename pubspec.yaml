@@ -78,5 +78,7 @@ flutter:
 # Flutter Launcher Icons Configuration
 flutter_launcher_icons:
   android: "launcher_icon"
+  ios: true
   image_path: "assets/app_icon/KangaroomLogo.png"
+  remove_alpha_ios: true
   min_sdk_android: 21

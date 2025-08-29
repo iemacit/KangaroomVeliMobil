@@ -5,6 +5,12 @@ plugins {
     id("dev.flutter.flutter-gradle-plugin")
 }
 
+val keyProperties = Properties()
+val keyPropertiesFile = rootProject.file("key.properties")
+if (keyPropertiesFile.exists()) {
+    keyProperties.load(FileInputStream(keyPropertiesFile))
+}
+
 android {
     namespace = "com.missoft.kangaroom"
     compileSdk = flutter.compileSdkVersion
@@ -21,10 +27,12 @@ android {
 
     signingConfigs {
         create("release") {
-            storeFile = file("../../kangaroom.jks")
-            storePassword = "Kanga2527."
-            keyAlias = "veli"
-            keyPassword = "Kanga2527."
+            if (keyProperties.containsKey("storeFile")) {
+                storeFile = file(keyProperties["storeFile"] as String)
+                storePassword = keyProperties["storePassword"] as String
+                keyAlias = keyProperties["keyAlias"] as String
+                keyPassword = keyProperties["keyPassword"] as String
+            }
         }
     }
 

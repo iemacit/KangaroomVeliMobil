@@ -92,6 +92,11 @@ coverage/
 **/google-services.json
 **/GoogleService-Info.plist
 
+# Keystore files
+**/key.properties
+**/kangaroom.jks
+**/upload_cert.pem
+
 # Generated files
 **/generated/
 **/l10n/generated/
