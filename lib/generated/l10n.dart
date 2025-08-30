@@ -1,2004 +1,1310 @@
-// GENERATED CODE - DO NOT MODIFY BY HAND
-import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'intl/messages_all.dart';
+import 'dart:async';
 
-// **************************************************************************
-// Generator: Flutter Intl IDE plugin
-// Made by Localizely
-// **************************************************************************
+import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:intl/intl.dart' as intl;
 
-// ignore_for_file: non_constant_identifier_names, lines_longer_than_80_chars
-// ignore_for_file: join_return_with_assignment, prefer_final_in_for_each
-// ignore_for_file: avoid_redundant_argument_values, avoid_escaping_inner_quotes
+import 'l10n_ar.dart';
+import 'l10n_de.dart';
+import 'l10n_en.dart';
+import 'l10n_fr.dart';
+import 'l10n_it.dart';
+import 'l10n_ru.dart';
+import 'l10n_tr.dart';
 
-class S {
-  S();
+// ignore_for_file: type=lint
 
-  static S? _current;
+/// Callers can lookup localized strings with an instance of S
+/// returned by `S.of(context)`.
+///
+/// Applications need to include `S.delegate()` in their app's
+/// `localizationDelegates` list, and the locales they support in the app's
+/// `supportedLocales` list. For example:
+///
+/// ```dart
+/// import 'generated/l10n.dart';
+///
+/// return MaterialApp(
+///   localizationsDelegates: S.localizationsDelegates,
+///   supportedLocales: S.supportedLocales,
+///   home: MyApplicationHome(),
+/// );
+/// ```
+///
+/// ## Update pubspec.yaml
+///
+/// Please make sure to update your pubspec.yaml to include the following
+/// packages:
+///
+/// ```yaml
+/// dependencies:
+///   # Internationalization support.
+///   flutter_localizations:
+///     sdk: flutter
+///   intl: any # Use the pinned version from flutter_localizations
+///
+///   # Rest of dependencies
+/// ```
+///
+/// ## iOS Applications
+///
+/// iOS applications define key application metadata, including supported
+/// locales, in an Info.plist file that is built into the application bundle.
+/// To configure the locales supported by your app, you’ll need to edit this
+/// file.
+///
+/// First, open your project’s ios/Runner.xcworkspace Xcode workspace file.
+/// Then, in the Project Navigator, open the Info.plist file under the Runner
+/// project’s Runner folder.
+///
+/// Next, select the Information Property List item, select Add Item from the
+/// Editor menu, then select Localizations from the pop-up menu.
+///
+/// Select and expand the newly-created Localizations item then, for each
+/// locale your application supports, add a new item and select the locale
+/// you wish to add from the pop-up menu in the Value field. This list should
+/// be consistent with the languages listed in the S.supportedLocales
+/// property.
+abstract class S {
+  S(String locale)
+      : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
-  static S get current {
-    assert(_current != null,
-        'No instance of S was loaded. Try to initialize the S delegate before accessing S.current.');
-    return _current!;
-  }
-
-  static const AppLocalizationDelegate delegate = AppLocalizationDelegate();
-
-  static Future<S> load(Locale locale) {
-    final name = (locale.countryCode?.isEmpty ?? false)
-        ? locale.languageCode
-        : locale.toString();
-    final localeName = Intl.canonicalizedLocale(name);
-    return initializeMessages(localeName).then((_) {
-      Intl.defaultLocale = localeName;
-      final instance = S();
-      S._current = instance;
-
-      return instance;
-    });
-  }
+  final String localeName;
 
   static S of(BuildContext context) {
-    final instance = S.maybeOf(context);
-    assert(instance != null,
-        'No instance of S present in the widget tree. Did you add S.delegate in localizationsDelegates?');
-    return instance!;
-  }
-
-  static S? maybeOf(BuildContext context) {
-    return Localizations.of<S>(context, S);
-  }
-
-  /// `Settings`
-  String get ayarlar {
-    return Intl.message(
-      'Settings',
-      name: 'ayarlar',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Account`
-  String get hesap {
-    return Intl.message(
-      'Account',
-      name: 'hesap',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Other`
-  String get diger {
-    return Intl.message(
-      'Other',
-      name: 'diger',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Language`
-  String get dil {
-    return Intl.message(
-      'Language',
-      name: 'dil',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `theme`
-  String get tema {
-    return Intl.message(
-      'theme',
-      name: 'tema',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Select Theme`
-  String get temaSecimi {
-    return Intl.message(
-      'Select Theme',
-      name: 'temaSecimi',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Select Language`
-  String get dilSecimi {
-    return Intl.message(
-      'Select Language',
-      name: 'dilSecimi',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Logout`
-  String get cikis {
-    return Intl.message(
-      'Logout',
-      name: 'cikis',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Error updating user information.`
-  String get guncellemeHatasi {
-    return Intl.message(
-      'Error updating user information.',
-      name: 'guncellemeHatasi',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Health`
-  String get saglik {
-    return Intl.message(
-      'Health',
-      name: 'saglik',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Menu`
-  String get menu {
-    return Intl.message(
-      'Menu',
-      name: 'menu',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Home`
-  String get anaSayfa {
-    return Intl.message(
-      'Home',
-      name: 'anaSayfa',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Corporate`
-  String get kurumsal {
-    return Intl.message(
-      'Corporate',
-      name: 'kurumsal',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `About Us`
-  String get hakkimizda {
-    return Intl.message(
-      'About Us',
-      name: 'hakkimizda',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Social Media`
-  String get sosyalMedya {
-    return Intl.message(
-      'Social Media',
-      name: 'sosyalMedya',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Education Staff`
-  String get egitimKadrosu {
-    return Intl.message(
-      'Education Staff',
-      name: 'egitimKadrosu',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Feedback and Suggestions`
-  String get gorusVeOneri {
-    return Intl.message(
-      'Feedback and Suggestions',
-      name: 'gorusVeOneri',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Status Information`
-  String get durumBilgisi {
-    return Intl.message(
-      'Status Information',
-      name: 'durumBilgisi',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Sad`
-  String get mutsuz {
-    return Intl.message(
-      'Sad',
-      name: 'mutsuz',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Rested`
-  String get dinlendi {
-    return Intl.message(
-      'Rested',
-      name: 'dinlendi',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Did a big toilet`
-  String get buyukTuvalet {
-    return Intl.message(
-      'Did a big toilet',
-      name: 'buyukTuvalet',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Took the medicine`
-  String get ilacAldi {
-    return Intl.message(
-      'Took the medicine',
-      name: 'ilacAldi',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Morning`
-  String get sabah {
-    return Intl.message(
-      'Morning',
-      name: 'sabah',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Noon`
-  String get ogle {
-    return Intl.message(
-      'Noon',
-      name: 'ogle',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Afternoon`
-  String get ikindi {
-    return Intl.message(
-      'Afternoon',
-      name: 'ikindi',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `No Attendance Information Entered.`
-  String get yoklamabilgisigirilmedi {
-    return Intl.message(
-      'No Attendance Information Entered.',
-      name: 'yoklamabilgisigirilmedi',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Profile`
-  String get profil {
-    return Intl.message(
-      'Profile',
-      name: 'profil',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Bell`
-  String get zil {
-    return Intl.message(
-      'Bell',
-      name: 'zil',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Dues`
-  String get aidat {
-    return Intl.message(
-      'Dues',
-      name: 'aidat',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Appointments`
-  String get randevular {
-    return Intl.message(
-      'Appointments',
-      name: 'randevular',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Report Card`
-  String get karne {
-    return Intl.message(
-      'Report Card',
-      name: 'karne',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Attendance`
-  String get yoklama {
-    return Intl.message(
-      'Attendance',
-      name: 'yoklama',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Height/Weight`
-  String get boyKilo {
-    return Intl.message(
-      'Height/Weight',
-      name: 'boyKilo',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Announcements`
-  String get duyurular {
-    return Intl.message(
-      'Announcements',
-      name: 'duyurular',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Newsletter`
-  String get bulten {
-    return Intl.message(
-      'Newsletter',
-      name: 'bulten',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Our Social Media Accounts`
-  String get sosyalMedyaHesaplarimiz {
-    return Intl.message(
-      'Our Social Media Accounts',
-      name: 'sosyalMedyaHesaplarimiz',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Mission`
-  String get misyon {
-    return Intl.message(
-      'Mission',
-      name: 'misyon',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Vision`
-  String get vizyon {
-    return Intl.message(
-      'Vision',
-      name: 'vizyon',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Activity`
-  String get etkinlik {
-    return Intl.message(
-      'Activity',
-      name: 'etkinlik',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Class Schedule`
-  String get dersProgrami {
-    return Intl.message(
-      'Class Schedule',
-      name: 'dersProgrami',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Meal Plan`
-  String get yemekProgrami {
-    return Intl.message(
-      'Meal Plan',
-      name: 'yemekProgrami',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Weekly Class Hours`
-  String get haftalikDersSaati {
-    return Intl.message(
-      'Weekly Class Hours',
-      name: 'haftalikDersSaati',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Account Transactions`
-  String get hesapIslemleri {
-    return Intl.message(
-      'Account Transactions',
-      name: 'hesapIslemleri',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `About the Application`
-  String get uygulamaHakkinda {
-    return Intl.message(
-      'About the Application',
-      name: 'uygulamaHakkinda',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Kangaroom Nursery Management App`
-  String get kangaroomUygulama {
-    return Intl.message(
-      'Kangaroom Nursery Management App',
-      name: 'kangaroomUygulama',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Missoft Digital Transformation`
-  String get missoft {
-    return Intl.message(
-      'Missoft Digital Transformation',
-      name: 'missoft',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Student Profile`
-  String get ogrenciProfili {
-    return Intl.message(
-      'Student Profile',
-      name: 'ogrenciProfili',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Age`
-  String get yas {
-    return Intl.message(
-      'Age',
-      name: 'yas',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Class`
-  String get sinif {
-    return Intl.message(
-      'Class',
-      name: 'sinif',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Teacher`
-  String get ogretmen {
-    return Intl.message(
-      'Teacher',
-      name: 'ogretmen',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Profile Picture`
-  String get profilResmi {
-    return Intl.message(
-      'Profile Picture',
-      name: 'profilResmi',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `View`
-  String get goruntule {
-    return Intl.message(
-      'View',
-      name: 'goruntule',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Select from Gallery`
-  String get galeridenSec {
-    return Intl.message(
-      'Select from Gallery',
-      name: 'galeridenSec',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Take a Photo with Camera`
-  String get kameraIleCek {
-    return Intl.message(
-      'Take a Photo with Camera',
-      name: 'kameraIleCek',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Please use the buttons above to inform the teacher... 😊`
-  String get lutfenOgretmeniBilgilendir {
-    return Intl.message(
-      'Please use the buttons above to inform the teacher... 😊',
-      name: 'lutfenOgretmeniBilgilendir',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Someone Else Will Pick Up My Child`
-  String get cocugumuBaskaBiriAlacak {
-    return Intl.message(
-      'Someone Else Will Pick Up My Child',
-      name: 'cocugumuBaskaBiriAlacak',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `I Will Pick Up`
-  String get benAlacagim {
-    return Intl.message(
-      'I Will Pick Up',
-      name: 'benAlacagim',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Cancel`
-  String get iptal {
-    return Intl.message(
-      'Cancel',
-      name: 'iptal',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Confirm`
-  String get tamam {
-    return Intl.message(
-      'Confirm',
-      name: 'tamam',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Who Will Pick Up?`
-  String get kimAlacak {
-    return Intl.message(
-      'Who Will Pick Up?',
-      name: 'kimAlacak',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Enter the name of the person picking up`
-  String get kiminAlacaginiGiriniz {
-    return Intl.message(
-      'Enter the name of the person picking up',
-      name: 'kiminAlacaginiGiriniz',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `When Will You Pick Up?`
-  String get nezamanAlacaksiniz {
-    return Intl.message(
-      'When Will You Pick Up?',
-      name: 'nezamanAlacaksiniz',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `I’m at the Door`
-  String get kapidayim {
-    return Intl.message(
-      'I’m at the Door',
-      name: 'kapidayim',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `5 minutes`
-  String get dk5 {
-    return Intl.message(
-      '5 minutes',
-      name: 'dk5',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `10 minutes`
-  String get dk10 {
-    return Intl.message(
-      '10 minutes',
-      name: 'dk10',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `15 minutes`
-  String get dk15 {
-    return Intl.message(
-      '15 minutes',
-      name: 'dk15',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Payment`
-  String get odeme {
-    return Intl.message(
-      'Payment',
-      name: 'odeme',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Loading Data...`
-  String get verilerYukleniyor {
-    return Intl.message(
-      'Loading Data...',
-      name: 'verilerYukleniyor',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Total Amount`
-  String get toplamTutar {
-    return Intl.message(
-      'Total Amount',
-      name: 'toplamTutar',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Payment Date`
-  String get odemeTarihi {
-    return Intl.message(
-      'Payment Date',
-      name: 'odemeTarihi',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Not Paid`
-  String get odenmemis {
-    return Intl.message(
-      'Not Paid',
-      name: 'odenmemis',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Year`
-  String get yil {
-    return Intl.message(
-      'Year',
-      name: 'yil',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Month`
-  String get ay {
-    return Intl.message(
-      'Month',
-      name: 'ay',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Stationery`
-  String get kirtasiye {
-    return Intl.message(
-      'Stationery',
-      name: 'kirtasiye',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Explanation`
-  String get aciklama {
-    return Intl.message(
-      'Explanation',
-      name: 'aciklama',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `January`
-  String get january {
-    return Intl.message(
-      'January',
-      name: 'january',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `February`
-  String get february {
-    return Intl.message(
-      'February',
-      name: 'february',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `March`
-  String get march {
-    return Intl.message(
-      'March',
-      name: 'march',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `April`
-  String get april {
-    return Intl.message(
-      'April',
-      name: 'april',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `May`
-  String get may {
-    return Intl.message(
-      'May',
-      name: 'may',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `June`
-  String get june {
-    return Intl.message(
-      'June',
-      name: 'june',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `July`
-  String get july {
-    return Intl.message(
-      'July',
-      name: 'july',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `August`
-  String get august {
-    return Intl.message(
-      'August',
-      name: 'august',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `September`
-  String get september {
-    return Intl.message(
-      'September',
-      name: 'september',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `October`
-  String get october {
-    return Intl.message(
-      'October',
-      name: 'october',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `November`
-  String get november {
-    return Intl.message(
-      'November',
-      name: 'november',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `December`
-  String get december {
-    return Intl.message(
-      'December',
-      name: 'december',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `No appointments assigned to you`
-  String get sizeTanimliRandevuBulunmamaktadir {
-    return Intl.message(
-      'No appointments assigned to you',
-      name: 'sizeTanimliRandevuBulunmamaktadir',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Teacher Name`
-  String get ogretmenAd {
-    return Intl.message(
-      'Teacher Name',
-      name: 'ogretmenAd',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Student Name`
-  String get ogrenciAd {
-    return Intl.message(
-      'Student Name',
-      name: 'ogrenciAd',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Approve`
-  String get onayla {
-    return Intl.message(
-      'Approve',
-      name: 'onayla',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Reject`
-  String get redEt {
-    return Intl.message(
-      'Reject',
-      name: 'redEt',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Delete Operation`
-  String get silmeIslemi {
-    return Intl.message(
-      'Delete Operation',
-      name: 'silmeIslemi',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Are you sure you want to delete this appointment?`
-  String get eminMisiniz {
-    return Intl.message(
-      'Are you sure you want to delete this appointment?',
-      name: 'eminMisiniz',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Yes`
-  String get evet {
-    return Intl.message(
-      'Yes',
-      name: 'evet',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Appointment successfully deleted.`
-  String get randevuSilindi {
-    return Intl.message(
-      'Appointment successfully deleted.',
-      name: 'randevuSilindi',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `No Report Card Information Available !!!`
-  String get karneBilgisiYok {
-    return Intl.message(
-      'No Report Card Information Available !!!',
-      name: 'karneBilgisiYok',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Select Term`
-  String get donemSecin {
-    return Intl.message(
-      'Select Term',
-      name: 'donemSecin',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Term`
-  String get donem {
-    return Intl.message(
-      'Term',
-      name: 'donem',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Type`
-  String get tur {
-    return Intl.message(
-      'Type',
-      name: 'tur',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Development Area`
-  String get gelisimAlani {
-    return Intl.message(
-      'Development Area',
-      name: 'gelisimAlani',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Attendance`
-  String get devamsizlik {
-    return Intl.message(
-      'Attendance',
-      name: 'devamsizlik',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Present`
-  String get devam {
-    return Intl.message(
-      'Present',
-      name: 'devam',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Absent`
-  String get devamsiz {
-    return Intl.message(
-      'Absent',
-      name: 'devamsiz',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `2 Weeks`
-  String get ikiHafta {
-    return Intl.message(
-      '2 Weeks',
-      name: 'ikiHafta',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Week`
-  String get hafta {
-    return Intl.message(
-      'Week',
-      name: 'hafta',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Data fetching error`
-  String get veriGetirmeHatasi {
-    return Intl.message(
-      'Data fetching error',
-      name: 'veriGetirmeHatasi',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `No data found for this student.`
-  String get veriBulunamadi {
-    return Intl.message(
-      'No data found for this student.',
-      name: 'veriBulunamadi',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Weight`
-  String get kilo {
-    return Intl.message(
-      'Weight',
-      name: 'kilo',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Height`
-  String get boy {
-    return Intl.message(
-      'Height',
-      name: 'boy',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Table`
-  String get tablo {
-    return Intl.message(
-      'Table',
-      name: 'tablo',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Date`
-  String get tarih {
-    return Intl.message(
-      'Date',
-      name: 'tarih',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Height`
-  String get boyCm {
-    return Intl.message(
-      'Height',
-      name: 'boyCm',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Weight`
-  String get kiloKg {
-    return Intl.message(
-      'Weight',
-      name: 'kiloKg',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Loading Announcements...`
-  String get duyurularYukleniyor {
-    return Intl.message(
-      'Loading Announcements...',
-      name: 'duyurularYukleniyor',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Announcements`
-  String get duyurularBaslik {
-    return Intl.message(
-      'Announcements',
-      name: 'duyurularBaslik',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Loading Announcements...`
-  String get duyuruYukleniyor {
-    return Intl.message(
-      'Loading Announcements...',
-      name: 'duyuruYukleniyor',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Announcement`
-  String get duyuru {
-    return Intl.message(
-      'Announcement',
-      name: 'duyuru',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Monthly`
-  String get aylik {
-    return Intl.message(
-      'Monthly',
-      name: 'aylik',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Health Information`
-  String get saglikBilgileri {
-    return Intl.message(
-      'Health Information',
-      name: 'saglikBilgileri',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Update Health Information`
-  String get saglikBilgisiGuncelleme {
-    return Intl.message(
-      'Update Health Information',
-      name: 'saglikBilgisiGuncelleme',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Medication Information`
-  String get ilacBilgisi {
-    return Intl.message(
-      'Medication Information',
-      name: 'ilacBilgisi',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Medication Time`
-  String get ilacSaati {
-    return Intl.message(
-      'Medication Time',
-      name: 'ilacSaati',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Chronic Disease Status`
-  String get kronikHastalikDurumu {
-    return Intl.message(
-      'Chronic Disease Status',
-      name: 'kronikHastalikDurumu',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Allergy Status`
-  String get alerjiDurumu {
-    return Intl.message(
-      'Allergy Status',
-      name: 'alerjiDurumu',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Update Information`
-  String get bilgileriGuncelle {
-    return Intl.message(
-      'Update Information',
-      name: 'bilgileriGuncelle',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Success`
-  String get basarili {
-    return Intl.message(
-      'Success',
-      name: 'basarili',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Information updated successfully.`
-  String get bilgilerGuncellendi {
-    return Intl.message(
-      'Information updated successfully.',
-      name: 'bilgilerGuncellendi',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Activity Page`
-  String get etkinlikSayfasi {
-    return Intl.message(
-      'Activity Page',
-      name: 'etkinlikSayfasi',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Time`
-  String get saat {
-    return Intl.message(
-      'Time',
-      name: 'saat',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Fee`
-  String get ucret {
-    return Intl.message(
-      'Fee',
-      name: 'ucret',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `IBAN`
-  String get iban {
-    return Intl.message(
-      'IBAN',
-      name: 'iban',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Not specified`
-  String get belirtilmedi {
-    return Intl.message(
-      'Not specified',
-      name: 'belirtilmedi',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Upload Receipt (PDF)`
-  String get dekontYukle {
-    return Intl.message(
-      'Upload Receipt (PDF)',
-      name: 'dekontYukle',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Uploaded Receipt: {fileName}`
-  String yuklenenDekont(Object fileName) {
-    return Intl.message(
-      'Uploaded Receipt: $fileName',
-      name: 'yuklenenDekont',
-      desc: '',
-      args: [fileName],
-    );
-  }
-
-  /// `Reject`
-  String get reddet {
-    return Intl.message(
-      'Reject',
-      name: 'reddet',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Registration completed`
-  String get kayitYapildi {
-    return Intl.message(
-      'Registration completed',
-      name: 'kayitYapildi',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Participation rejected`
-  String get katilimReddedildi {
-    return Intl.message(
-      'Participation rejected',
-      name: 'katilimReddedildi',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Receipt uploaded: {fileName}`
-  String dekontYuklendi(Object fileName) {
-    return Intl.message(
-      'Receipt uploaded: $fileName',
-      name: 'dekontYuklendi',
-      desc: '',
-      args: [fileName],
-    );
-  }
-
-  /// `Activity Main Page`
-  String get etkinlikAnaSayfasi {
-    return Intl.message(
-      'Activity Main Page',
-      name: 'etkinlikAnaSayfasi',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Activity Name`
-  String get etkinlikAdi {
-    return Intl.message(
-      'Activity Name',
-      name: 'etkinlikAdi',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Activity Date`
-  String get etkinlikTarihi {
-    return Intl.message(
-      'Activity Date',
-      name: 'etkinlikTarihi',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Activity Approval Status`
-  String get onaylanmaDurumu {
-    return Intl.message(
-      'Activity Approval Status',
-      name: 'onaylanmaDurumu',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Recipient Account`
-  String get aliciHesap {
-    return Intl.message(
-      'Recipient Account',
-      name: 'aliciHesap',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `File Name`
-  String get dosyaAdi {
-    return Intl.message(
-      'File Name',
-      name: 'dosyaAdi',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Download PDF`
-  String get indir {
-    return Intl.message(
-      'Download PDF',
-      name: 'indir',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Data could not be loaded`
-  String get veriYuklenemedi {
-    return Intl.message(
-      'Data could not be loaded',
-      name: 'veriYuklenemedi',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `No closest class found.`
-  String get enYakinDersBulunamadi {
-    return Intl.message(
-      'No closest class found.',
-      name: 'enYakinDersBulunamadi',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `No date`
-  String get tarihYok {
-    return Intl.message(
-      'No date',
-      name: 'tarihYok',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `No time`
-  String get saatYok {
-    return Intl.message(
-      'No time',
-      name: 'saatYok',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `normal`
-  String get normal {
-    return Intl.message(
-      'normal',
-      name: 'normal',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Happy`
-  String get mutlu {
-    return Intl.message(
-      'Happy',
-      name: 'mutlu',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Sad`
-  String get uzgun {
-    return Intl.message(
-      'Sad',
-      name: 'uzgun',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Angry`
-  String get ofkeli {
-    return Intl.message(
-      'Angry',
-      name: 'ofkeli',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Did a big toilet on his self`
-  String get buyukTuvaletaltinayati {
-    return Intl.message(
-      'Did a big toilet on his self',
-      name: 'buyukTuvaletaltinayati',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Did a small toilet on his self`
-  String get kucukTuvaletaltinayati {
-    return Intl.message(
-      'Did a small toilet on his self',
-      name: 'kucukTuvaletaltinayati',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Did a small toilet`
-  String get kucukTuvalet {
-    return Intl.message(
-      'Did a small toilet',
-      name: 'kucukTuvalet',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Didn't take the medicine`
-  String get ilacAlmadi {
-    return Intl.message(
-      'Didn\'t take the medicine',
-      name: 'ilacAlmadi',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Bell sent`
-  String get zilgonderildi {
-    return Intl.message(
-      'Bell sent',
-      name: 'zilgonderildi',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Bell not sent`
-  String get zilgonderilmedi {
-    return Intl.message(
-      'Bell not sent',
-      name: 'zilgonderilmedi',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Today is a holiday`
-  String get buguntatil {
-    return Intl.message(
-      'Today is a holiday',
-      name: 'buguntatil',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Status information`
-  String get durumbilgisi {
-    return Intl.message(
-      'Status information',
-      name: 'durumbilgisi',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Image not uploaded`
-  String get resimyuklenmedi {
-    return Intl.message(
-      'Image not uploaded',
-      name: 'resimyuklenmedi',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Image uploaded`
-  String get resimyuklendi {
-    return Intl.message(
-      'Image uploaded',
-      name: 'resimyuklendi',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `I did not go to school`
-  String get okulagelmdim {
-    return Intl.message(
-      'I did not go to school',
-      name: 'okulagelmdim',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Did not sleep`
-  String get uyumadi {
-    return Intl.message(
-      'Did not sleep',
-      name: 'uyumadi',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Slept`
-  String get uyudu {
-    return Intl.message(
-      'Slept',
-      name: 'uyudu',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `no data`
-  String get yok {
-    return Intl.message(
-      'no data',
-      name: 'yok',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Leason`
-  String get ders {
-    return Intl.message(
-      'Leason',
-      name: 'ders',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `store `
-  String get puan {
-    return Intl.message(
-      'store ',
-      name: 'puan',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `accepted`
-  String get onaylandi {
-    return Intl.message(
-      'accepted',
-      name: 'onaylandi',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `No appointment is assigned`
-  String get noAppointment {
-    return Intl.message(
-      'No appointment is assigned',
-      name: 'noAppointment',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `↓ The response from the institution will be forwarded below. ↓`
-  String get institutionResponse {
-    return Intl.message(
-      '↓ The response from the institution will be forwarded below. ↓',
-      name: 'institutionResponse',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Response received`
-  String get responseReceived {
-    return Intl.message(
-      'Response received',
-      name: 'responseReceived',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Your feedback and suggestions have been received and will be forwarded to the response area as soon as possible, thank you...`
-  String get feedbackReceived {
-    return Intl.message(
-      'Your feedback and suggestions have been received and will be forwarded to the response area as soon as possible, thank you...',
-      name: 'feedbackReceived',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `send`
-  String get gonder {
-    return Intl.message(
-      'send',
-      name: 'gonder',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Principal`
-  String get mudur {
-    return Intl.message(
-      'Principal',
-      name: 'mudur',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Vice Principal`
-  String get mudurYardimcisi {
-    return Intl.message(
-      'Vice Principal',
-      name: 'mudurYardimcisi',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `No Message!`
-  String get noMessage {
-    return Intl.message(
-      'No Message!',
-      name: 'noMessage',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Write your message`
-  String get writeMessage {
-    return Intl.message(
-      'Write your message',
-      name: 'writeMessage',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Mobile Application`
-  String get mobil {
-    return Intl.message(
-      'Mobile Application',
-      name: 'mobil',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Rejected`
-  String get reddedildi {
-    return Intl.message(
-      'Rejected',
-      name: 'reddedildi',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Lesson images`
-  String get dersresimleri {
-    return Intl.message(
-      'Lesson images',
-      name: 'dersresimleri',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `There is a debt for the period`
-  String get borc {
-    return Intl.message(
-      'There is a debt for the period',
-      name: 'borc',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Payment Alert`
-  String get aidetborc {
-    return Intl.message(
-      'Payment Alert',
-      name: 'aidetborc',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `questionnaire`
-  String get anket {
-    return Intl.message(
-      'questionnaire',
-      name: 'anket',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `questionnaire`
-  String get anketSayfasi {
-    return Intl.message(
-      'questionnaire',
-      name: 'anketSayfasi',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `chatbot`
-  String get chatbot {
-    return Intl.message(
-      'chatbot',
-      name: 'chatbot',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Birth Date`
-  String get dogumtarihi {
-    return Intl.message(
-      'Birth Date',
-      name: 'dogumtarihi',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Title`
-  String get baslik {
-    return Intl.message(
-      'Title',
-      name: 'baslik',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Please write the reason for rejection`
-  String get redsebebiyaz {
-    return Intl.message(
-      'Please write the reason for rejection',
-      name: 'redsebebiyaz',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Contact`
-  String get iletisim {
-    return Intl.message(
-      'Contact',
-      name: 'iletisim',
-      desc: '',
-      args: [],
-    );
-  }
+    return Localizations.of<S>(context, S)!;
+  }
+
+  static const LocalizationsDelegate<S> delegate = _SDelegate();
+
+  /// A list of this localizations delegate along with the default localizations
+  /// delegates.
+  ///
+  /// Returns a list of localizations delegates containing this delegate along with
+  /// GlobalMaterialLocalizations.delegate, GlobalCupertinoLocalizations.delegate,
+  /// and GlobalWidgetsLocalizations.delegate.
+  ///
+  /// Additional delegates can be added by appending to this list in
+  /// MaterialApp. This list does not have to be used at all if a custom list
+  /// of delegates is preferred or required.
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
+      <LocalizationsDelegate<dynamic>>[
+    delegate,
+    GlobalMaterialLocalizations.delegate,
+    GlobalCupertinoLocalizations.delegate,
+    GlobalWidgetsLocalizations.delegate,
+  ];
+
+  /// A list of this localizations delegate's supported locales.
+  static const List<Locale> supportedLocales = <Locale>[
+    Locale('ar'),
+    Locale('de'),
+    Locale('en'),
+    Locale('fr'),
+    Locale('it'),
+    Locale('ru'),
+    Locale('tr')
+  ];
+
+  /// No description provided for @ayarlar.
+  ///
+  /// In tr, this message translates to:
+  /// **'Ayarlar'**
+  String get ayarlar;
+
+  /// No description provided for @hesap.
+  ///
+  /// In tr, this message translates to:
+  /// **'Hesap'**
+  String get hesap;
+
+  /// No description provided for @diger.
+  ///
+  /// In tr, this message translates to:
+  /// **'Diğer'**
+  String get diger;
+
+  /// No description provided for @dil.
+  ///
+  /// In tr, this message translates to:
+  /// **'Dil'**
+  String get dil;
+
+  /// No description provided for @tema.
+  ///
+  /// In tr, this message translates to:
+  /// **'Tema'**
+  String get tema;
+
+  /// No description provided for @temaSecimi.
+  ///
+  /// In tr, this message translates to:
+  /// **'Tema Seçimi'**
+  String get temaSecimi;
+
+  /// No description provided for @dilSecimi.
+  ///
+  /// In tr, this message translates to:
+  /// **'Dil Seçimi'**
+  String get dilSecimi;
+
+  /// No description provided for @cikis.
+  ///
+  /// In tr, this message translates to:
+  /// **'Çıkış'**
+  String get cikis;
+
+  /// No description provided for @guncellemeHatasi.
+  ///
+  /// In tr, this message translates to:
+  /// **'Kullanıcı bilgileri güncellenirken bir hata oluştu.'**
+  String get guncellemeHatasi;
+
+  /// No description provided for @saglik.
+  ///
+  /// In tr, this message translates to:
+  /// **'Sağlık'**
+  String get saglik;
+
+  /// No description provided for @menu.
+  ///
+  /// In tr, this message translates to:
+  /// **'Menü'**
+  String get menu;
+
+  /// No description provided for @anaSayfa.
+  ///
+  /// In tr, this message translates to:
+  /// **'Ana Sayfa'**
+  String get anaSayfa;
+
+  /// No description provided for @kurumsal.
+  ///
+  /// In tr, this message translates to:
+  /// **'Kurumsal'**
+  String get kurumsal;
+
+  /// No description provided for @hakkimizda.
+  ///
+  /// In tr, this message translates to:
+  /// **'Hakkımızda'**
+  String get hakkimizda;
+
+  /// No description provided for @sosyalMedya.
+  ///
+  /// In tr, this message translates to:
+  /// **'Sosyal Medya'**
+  String get sosyalMedya;
+
+  /// No description provided for @egitimKadrosu.
+  ///
+  /// In tr, this message translates to:
+  /// **'Eğitmen Kadrosu'**
+  String get egitimKadrosu;
+
+  /// No description provided for @gorusVeOneri.
+  ///
+  /// In tr, this message translates to:
+  /// **'Görüş ve Öneri'**
+  String get gorusVeOneri;
+
+  /// No description provided for @durumBilgisi.
+  ///
+  /// In tr, this message translates to:
+  /// **'Durum Bilgisi'**
+  String get durumBilgisi;
+
+  /// No description provided for @mutsuz.
+  ///
+  /// In tr, this message translates to:
+  /// **'Mutsuz'**
+  String get mutsuz;
+
+  /// No description provided for @dinlendi.
+  ///
+  /// In tr, this message translates to:
+  /// **'Dinlendi'**
+  String get dinlendi;
+
+  /// No description provided for @buyukTuvalet.
+  ///
+  /// In tr, this message translates to:
+  /// **'Büyük tuvalet yaptı'**
+  String get buyukTuvalet;
+
+  /// No description provided for @ilacAldi.
+  ///
+  /// In tr, this message translates to:
+  /// **'İlaç aldı'**
+  String get ilacAldi;
+
+  /// No description provided for @sabah.
+  ///
+  /// In tr, this message translates to:
+  /// **'Sabah'**
+  String get sabah;
+
+  /// No description provided for @ogle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Öğle'**
+  String get ogle;
+
+  /// No description provided for @ikindi.
+  ///
+  /// In tr, this message translates to:
+  /// **'İkindi'**
+  String get ikindi;
+
+  /// No description provided for @yoklamabilgisigirilmedi.
+  ///
+  /// In tr, this message translates to:
+  /// **'Yoklama Bilgisi Girilmedi.'**
+  String get yoklamabilgisigirilmedi;
+
+  /// No description provided for @profil.
+  ///
+  /// In tr, this message translates to:
+  /// **'Profil'**
+  String get profil;
+
+  /// No description provided for @zil.
+  ///
+  /// In tr, this message translates to:
+  /// **'Zil'**
+  String get zil;
+
+  /// No description provided for @aidat.
+  ///
+  /// In tr, this message translates to:
+  /// **'Aidat'**
+  String get aidat;
+
+  /// No description provided for @randevular.
+  ///
+  /// In tr, this message translates to:
+  /// **'Randevular'**
+  String get randevular;
+
+  /// No description provided for @karne.
+  ///
+  /// In tr, this message translates to:
+  /// **'Gelişim Raporu'**
+  String get karne;
+
+  /// No description provided for @yoklama.
+  ///
+  /// In tr, this message translates to:
+  /// **'Yoklama'**
+  String get yoklama;
+
+  /// No description provided for @boyKilo.
+  ///
+  /// In tr, this message translates to:
+  /// **'Boy/Kilo'**
+  String get boyKilo;
+
+  /// No description provided for @duyurular.
+  ///
+  /// In tr, this message translates to:
+  /// **'Duyurular'**
+  String get duyurular;
+
+  /// No description provided for @bulten.
+  ///
+  /// In tr, this message translates to:
+  /// **'Bülten'**
+  String get bulten;
+
+  /// No description provided for @etkinlik.
+  ///
+  /// In tr, this message translates to:
+  /// **'Etkinlik'**
+  String get etkinlik;
+
+  /// No description provided for @dersProgrami.
+  ///
+  /// In tr, this message translates to:
+  /// **'Ders Programı'**
+  String get dersProgrami;
+
+  /// No description provided for @yemekProgrami.
+  ///
+  /// In tr, this message translates to:
+  /// **'Yemek Programı'**
+  String get yemekProgrami;
+
+  /// No description provided for @haftalikDersSaati.
+  ///
+  /// In tr, this message translates to:
+  /// **'Haftalık Ders Saati'**
+  String get haftalikDersSaati;
+
+  /// No description provided for @sosyalMedyaHesaplarimiz.
+  ///
+  /// In tr, this message translates to:
+  /// **'Sosyal Medya Hesaplarımız'**
+  String get sosyalMedyaHesaplarimiz;
+
+  /// No description provided for @misyon.
+  ///
+  /// In tr, this message translates to:
+  /// **'Misyon'**
+  String get misyon;
+
+  /// No description provided for @vizyon.
+  ///
+  /// In tr, this message translates to:
+  /// **'Vizyon'**
+  String get vizyon;
+
+  /// No description provided for @hesapIslemleri.
+  ///
+  /// In tr, this message translates to:
+  /// **'Hesap İşlemleri'**
+  String get hesapIslemleri;
+
+  /// No description provided for @uygulamaHakkinda.
+  ///
+  /// In tr, this message translates to:
+  /// **'Uygulama Hakkında'**
+  String get uygulamaHakkinda;
+
+  /// No description provided for @kangaroomUygulama.
+  ///
+  /// In tr, this message translates to:
+  /// **'Kangaroom Kreş Yönetim Uygulaması'**
+  String get kangaroomUygulama;
+
+  /// No description provided for @missoft.
+  ///
+  /// In tr, this message translates to:
+  /// **'Missoft Dijital Dönüşüm'**
+  String get missoft;
+
+  /// No description provided for @ogrenciProfili.
+  ///
+  /// In tr, this message translates to:
+  /// **'Öğrenci Profili'**
+  String get ogrenciProfili;
+
+  /// No description provided for @yas.
+  ///
+  /// In tr, this message translates to:
+  /// **'Yaş'**
+  String get yas;
+
+  /// No description provided for @sinif.
+  ///
+  /// In tr, this message translates to:
+  /// **'Sınıf'**
+  String get sinif;
+
+  /// No description provided for @ogretmen.
+  ///
+  /// In tr, this message translates to:
+  /// **'Öğretmen'**
+  String get ogretmen;
+
+  /// No description provided for @profilResmi.
+  ///
+  /// In tr, this message translates to:
+  /// **'Profil Resmi'**
+  String get profilResmi;
+
+  /// No description provided for @goruntule.
+  ///
+  /// In tr, this message translates to:
+  /// **'Görüntüle'**
+  String get goruntule;
+
+  /// No description provided for @galeridenSec.
+  ///
+  /// In tr, this message translates to:
+  /// **'Galeriden Seç'**
+  String get galeridenSec;
+
+  /// No description provided for @kameraIleCek.
+  ///
+  /// In tr, this message translates to:
+  /// **'Kamera ile Çek'**
+  String get kameraIleCek;
+
+  /// No description provided for @lutfenOgretmeniBilgilendir.
+  ///
+  /// In tr, this message translates to:
+  /// **'lütfen Öğretmenimizi bilgilendirmek için yukarıdaki butonları kullanın... 😊'**
+  String get lutfenOgretmeniBilgilendir;
+
+  /// No description provided for @cocugumuBaskaBiriAlacak.
+  ///
+  /// In tr, this message translates to:
+  /// **'Çocuğumu Başka Biri Alacak'**
+  String get cocugumuBaskaBiriAlacak;
+
+  /// No description provided for @benAlacagim.
+  ///
+  /// In tr, this message translates to:
+  /// **'Ben Alacağım'**
+  String get benAlacagim;
+
+  /// No description provided for @iptal.
+  ///
+  /// In tr, this message translates to:
+  /// **'İptal'**
+  String get iptal;
+
+  /// No description provided for @tamam.
+  ///
+  /// In tr, this message translates to:
+  /// **'Tamam'**
+  String get tamam;
+
+  /// No description provided for @kimAlacak.
+  ///
+  /// In tr, this message translates to:
+  /// **'Kim Alacak?'**
+  String get kimAlacak;
+
+  /// No description provided for @kiminAlacaginiGiriniz.
+  ///
+  /// In tr, this message translates to:
+  /// **'Kimin alacağını giriniz'**
+  String get kiminAlacaginiGiriniz;
+
+  /// No description provided for @nezamanAlacaksiniz.
+  ///
+  /// In tr, this message translates to:
+  /// **'Nezaman Alacaksınız?'**
+  String get nezamanAlacaksiniz;
+
+  /// No description provided for @kapidayim.
+  ///
+  /// In tr, this message translates to:
+  /// **'Kapıdayım'**
+  String get kapidayim;
+
+  /// No description provided for @dk5.
+  ///
+  /// In tr, this message translates to:
+  /// **'5dk'**
+  String get dk5;
+
+  /// No description provided for @dk10.
+  ///
+  /// In tr, this message translates to:
+  /// **'10dk'**
+  String get dk10;
+
+  /// No description provided for @dk15.
+  ///
+  /// In tr, this message translates to:
+  /// **'15dk'**
+  String get dk15;
+
+  /// No description provided for @odeme.
+  ///
+  /// In tr, this message translates to:
+  /// **'Ödeme'**
+  String get odeme;
+
+  /// No description provided for @verilerYukleniyor.
+  ///
+  /// In tr, this message translates to:
+  /// **'Veriler Yükleniyor...'**
+  String get verilerYukleniyor;
+
+  /// No description provided for @toplamTutar.
+  ///
+  /// In tr, this message translates to:
+  /// **'Toplam tutar'**
+  String get toplamTutar;
+
+  /// No description provided for @odemeTarihi.
+  ///
+  /// In tr, this message translates to:
+  /// **'Ödeme Tarihi'**
+  String get odemeTarihi;
+
+  /// No description provided for @odenmemis.
+  ///
+  /// In tr, this message translates to:
+  /// **'Ödenmemiş'**
+  String get odenmemis;
+
+  /// No description provided for @yil.
+  ///
+  /// In tr, this message translates to:
+  /// **'Yıl'**
+  String get yil;
+
+  /// No description provided for @ay.
+  ///
+  /// In tr, this message translates to:
+  /// **'Ay'**
+  String get ay;
+
+  /// No description provided for @kirtasiye.
+  ///
+  /// In tr, this message translates to:
+  /// **'Kırtasiye'**
+  String get kirtasiye;
+
+  /// No description provided for @aciklama.
+  ///
+  /// In tr, this message translates to:
+  /// **'Açıklama'**
+  String get aciklama;
+
+  /// No description provided for @january.
+  ///
+  /// In tr, this message translates to:
+  /// **'Ocak'**
+  String get january;
+
+  /// No description provided for @february.
+  ///
+  /// In tr, this message translates to:
+  /// **'Şubat'**
+  String get february;
+
+  /// No description provided for @march.
+  ///
+  /// In tr, this message translates to:
+  /// **'Mart'**
+  String get march;
+
+  /// No description provided for @april.
+  ///
+  /// In tr, this message translates to:
+  /// **'Nisan'**
+  String get april;
+
+  /// No description provided for @may.
+  ///
+  /// In tr, this message translates to:
+  /// **'Mayıs'**
+  String get may;
+
+  /// No description provided for @june.
+  ///
+  /// In tr, this message translates to:
+  /// **'Haziran'**
+  String get june;
+
+  /// No description provided for @july.
+  ///
+  /// In tr, this message translates to:
+  /// **'Temmuz'**
+  String get july;
+
+  /// No description provided for @august.
+  ///
+  /// In tr, this message translates to:
+  /// **'Ağustos'**
+  String get august;
+
+  /// No description provided for @september.
+  ///
+  /// In tr, this message translates to:
+  /// **'Eylül'**
+  String get september;
+
+  /// No description provided for @october.
+  ///
+  /// In tr, this message translates to:
+  /// **'Ekim'**
+  String get october;
+
+  /// No description provided for @november.
+  ///
+  /// In tr, this message translates to:
+  /// **'Kasım'**
+  String get november;
+
+  /// No description provided for @december.
+  ///
+  /// In tr, this message translates to:
+  /// **'Aralık'**
+  String get december;
+
+  /// No description provided for @sizeTanimliRandevuBulunmamaktadir.
+  ///
+  /// In tr, this message translates to:
+  /// **'Size tanımlı randevu bulunmamaktadır'**
+  String get sizeTanimliRandevuBulunmamaktadir;
+
+  /// No description provided for @ogretmenAd.
+  ///
+  /// In tr, this message translates to:
+  /// **'Öğretmen Adı'**
+  String get ogretmenAd;
+
+  /// No description provided for @ogrenciAd.
+  ///
+  /// In tr, this message translates to:
+  /// **'Öğrenci Adı'**
+  String get ogrenciAd;
+
+  /// No description provided for @onayla.
+  ///
+  /// In tr, this message translates to:
+  /// **'Onayla'**
+  String get onayla;
+
+  /// No description provided for @redEt.
+  ///
+  /// In tr, this message translates to:
+  /// **'Red Et'**
+  String get redEt;
+
+  /// No description provided for @silmeIslemi.
+  ///
+  /// In tr, this message translates to:
+  /// **'Silme İşlemi'**
+  String get silmeIslemi;
+
+  /// No description provided for @eminMisiniz.
+  ///
+  /// In tr, this message translates to:
+  /// **'Bu randevuyu silmek istediğinizden emin misiniz?'**
+  String get eminMisiniz;
+
+  /// No description provided for @evet.
+  ///
+  /// In tr, this message translates to:
+  /// **'Evet'**
+  String get evet;
+
+  /// No description provided for @randevuSilindi.
+  ///
+  /// In tr, this message translates to:
+  /// **'Randevu başarıyla silindi.'**
+  String get randevuSilindi;
+
+  /// No description provided for @karneBilgisiYok.
+  ///
+  /// In tr, this message translates to:
+  /// **'Gelişim Raporu Bilgisi Yok !!!'**
+  String get karneBilgisiYok;
+
+  /// No description provided for @donemSecin.
+  ///
+  /// In tr, this message translates to:
+  /// **'Dönem seçin'**
+  String get donemSecin;
+
+  /// No description provided for @donem.
+  ///
+  /// In tr, this message translates to:
+  /// **'Dönem'**
+  String get donem;
+
+  /// No description provided for @tur.
+  ///
+  /// In tr, this message translates to:
+  /// **'Tür'**
+  String get tur;
+
+  /// No description provided for @gelisimAlani.
+  ///
+  /// In tr, this message translates to:
+  /// **'Gelişim Alanı'**
+  String get gelisimAlani;
+
+  /// No description provided for @devamsizlik.
+  ///
+  /// In tr, this message translates to:
+  /// **'Devamsızlık'**
+  String get devamsizlik;
+
+  /// No description provided for @devam.
+  ///
+  /// In tr, this message translates to:
+  /// **'Devam'**
+  String get devam;
+
+  /// No description provided for @devamsiz.
+  ///
+  /// In tr, this message translates to:
+  /// **'Devamsız'**
+  String get devamsiz;
+
+  /// No description provided for @ikiHafta.
+  ///
+  /// In tr, this message translates to:
+  /// **'2 Hafta'**
+  String get ikiHafta;
+
+  /// No description provided for @hafta.
+  ///
+  /// In tr, this message translates to:
+  /// **'Hafta'**
+  String get hafta;
+
+  /// No description provided for @veriGetirmeHatasi.
+  ///
+  /// In tr, this message translates to:
+  /// **'Veri getirme hatası'**
+  String get veriGetirmeHatasi;
+
+  /// No description provided for @veriBulunamadi.
+  ///
+  /// In tr, this message translates to:
+  /// **'Bu öğrenci için veri bulunamadı.'**
+  String get veriBulunamadi;
+
+  /// No description provided for @kilo.
+  ///
+  /// In tr, this message translates to:
+  /// **'Kilo'**
+  String get kilo;
+
+  /// No description provided for @boy.
+  ///
+  /// In tr, this message translates to:
+  /// **'Boy'**
+  String get boy;
+
+  /// No description provided for @tablo.
+  ///
+  /// In tr, this message translates to:
+  /// **'Tablo'**
+  String get tablo;
+
+  /// No description provided for @tarih.
+  ///
+  /// In tr, this message translates to:
+  /// **'Tarih'**
+  String get tarih;
+
+  /// No description provided for @boyCm.
+  ///
+  /// In tr, this message translates to:
+  /// **'Boy'**
+  String get boyCm;
+
+  /// No description provided for @kiloKg.
+  ///
+  /// In tr, this message translates to:
+  /// **'Kilo'**
+  String get kiloKg;
+
+  /// No description provided for @duyurularYukleniyor.
+  ///
+  /// In tr, this message translates to:
+  /// **'Duyurular Yükleniyor...'**
+  String get duyurularYukleniyor;
+
+  /// No description provided for @duyurularBaslik.
+  ///
+  /// In tr, this message translates to:
+  /// **'Duyurular'**
+  String get duyurularBaslik;
+
+  /// No description provided for @duyuruYukleniyor.
+  ///
+  /// In tr, this message translates to:
+  /// **'Duyurular Yükleniyor...'**
+  String get duyuruYukleniyor;
+
+  /// No description provided for @duyuru.
+  ///
+  /// In tr, this message translates to:
+  /// **'Duyuru'**
+  String get duyuru;
+
+  /// No description provided for @aylik.
+  ///
+  /// In tr, this message translates to:
+  /// **'Aylık'**
+  String get aylik;
+
+  /// No description provided for @saglikBilgileri.
+  ///
+  /// In tr, this message translates to:
+  /// **'Sağlık Bilgileri'**
+  String get saglikBilgileri;
+
+  /// No description provided for @saglikBilgisiGuncelleme.
+  ///
+  /// In tr, this message translates to:
+  /// **'Sağlık Bilgisi Güncelleme'**
+  String get saglikBilgisiGuncelleme;
+
+  /// No description provided for @ilacBilgisi.
+  ///
+  /// In tr, this message translates to:
+  /// **'İlaç Bilgisi'**
+  String get ilacBilgisi;
+
+  /// No description provided for @ilacSaati.
+  ///
+  /// In tr, this message translates to:
+  /// **'İlaç Saati'**
+  String get ilacSaati;
+
+  /// No description provided for @kronikHastalikDurumu.
+  ///
+  /// In tr, this message translates to:
+  /// **'Kronik Hastalık Durumu'**
+  String get kronikHastalikDurumu;
+
+  /// No description provided for @alerjiDurumu.
+  ///
+  /// In tr, this message translates to:
+  /// **'Alerji Durumu'**
+  String get alerjiDurumu;
+
+  /// No description provided for @bilgileriGuncelle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Bilgileri Güncelle'**
+  String get bilgileriGuncelle;
+
+  /// No description provided for @basarili.
+  ///
+  /// In tr, this message translates to:
+  /// **'Başarılı'**
+  String get basarili;
+
+  /// No description provided for @bilgilerGuncellendi.
+  ///
+  /// In tr, this message translates to:
+  /// **'Bilgiler başarıyla güncellendi.'**
+  String get bilgilerGuncellendi;
+
+  /// No description provided for @etkinlikSayfasi.
+  ///
+  /// In tr, this message translates to:
+  /// **'Etkinlik Sayfası'**
+  String get etkinlikSayfasi;
+
+  /// No description provided for @saat.
+  ///
+  /// In tr, this message translates to:
+  /// **'Saat'**
+  String get saat;
+
+  /// No description provided for @ucret.
+  ///
+  /// In tr, this message translates to:
+  /// **'Ücret'**
+  String get ucret;
+
+  /// No description provided for @iban.
+  ///
+  /// In tr, this message translates to:
+  /// **'IBAN'**
+  String get iban;
+
+  /// No description provided for @belirtilmedi.
+  ///
+  /// In tr, this message translates to:
+  /// **'Belirtilmedi'**
+  String get belirtilmedi;
+
+  /// No description provided for @dekontYukle.
+  ///
+  /// In tr, this message translates to:
+  /// **'Dekont Yükle (PDF)'**
+  String get dekontYukle;
+
+  /// No description provided for @yuklenenDekont.
+  ///
+  /// In tr, this message translates to:
+  /// **'Yüklenen Dekont: {fileName}'**
+  String yuklenenDekont(Object fileName);
+
+  /// No description provided for @reddet.
+  ///
+  /// In tr, this message translates to:
+  /// **'Reddet'**
+  String get reddet;
+
+  /// No description provided for @kayitYapildi.
+  ///
+  /// In tr, this message translates to:
+  /// **'Kayıt yapıldı'**
+  String get kayitYapildi;
+
+  /// No description provided for @katilimReddedildi.
+  ///
+  /// In tr, this message translates to:
+  /// **'Etkinliğe katılım reddedildi'**
+  String get katilimReddedildi;
+
+  /// No description provided for @dekontYuklendi.
+  ///
+  /// In tr, this message translates to:
+  /// **'Dekont yüklendi: {fileName}'**
+  String dekontYuklendi(Object fileName);
+
+  /// No description provided for @etkinlikAnaSayfasi.
+  ///
+  /// In tr, this message translates to:
+  /// **'Etkinlik Ana Sayfası'**
+  String get etkinlikAnaSayfasi;
+
+  /// No description provided for @etkinlikAdi.
+  ///
+  /// In tr, this message translates to:
+  /// **'Etkinlik Adı'**
+  String get etkinlikAdi;
+
+  /// No description provided for @etkinlikTarihi.
+  ///
+  /// In tr, this message translates to:
+  /// **'Etkinlik Tarihi'**
+  String get etkinlikTarihi;
+
+  /// No description provided for @onaylanmaDurumu.
+  ///
+  /// In tr, this message translates to:
+  /// **'Etkinliğin Onaylanma Durumu'**
+  String get onaylanmaDurumu;
+
+  /// No description provided for @aliciHesap.
+  ///
+  /// In tr, this message translates to:
+  /// **'Alıcı Hesap'**
+  String get aliciHesap;
+
+  /// No description provided for @dosyaAdi.
+  ///
+  /// In tr, this message translates to:
+  /// **'Dosya Adı'**
+  String get dosyaAdi;
+
+  /// No description provided for @indir.
+  ///
+  /// In tr, this message translates to:
+  /// **'PDF\'i İndir'**
+  String get indir;
+
+  /// No description provided for @veriYuklenemedi.
+  ///
+  /// In tr, this message translates to:
+  /// **'Veriler yüklenemedi'**
+  String get veriYuklenemedi;
+
+  /// No description provided for @enYakinDersBulunamadi.
+  ///
+  /// In tr, this message translates to:
+  /// **'En yakın ders bulunamadı.'**
+  String get enYakinDersBulunamadi;
+
+  /// No description provided for @tarihYok.
+  ///
+  /// In tr, this message translates to:
+  /// **'Tarih yok'**
+  String get tarihYok;
+
+  /// No description provided for @saatYok.
+  ///
+  /// In tr, this message translates to:
+  /// **'Saat yok'**
+  String get saatYok;
+
+  /// No description provided for @normal.
+  ///
+  /// In tr, this message translates to:
+  /// **'Normal'**
+  String get normal;
+
+  /// No description provided for @mutlu.
+  ///
+  /// In tr, this message translates to:
+  /// **'Mutlu'**
+  String get mutlu;
+
+  /// No description provided for @uzgun.
+  ///
+  /// In tr, this message translates to:
+  /// **'Üzgün'**
+  String get uzgun;
+
+  /// No description provided for @ofkeli.
+  ///
+  /// In tr, this message translates to:
+  /// **'Öfkeli'**
+  String get ofkeli;
+
+  /// No description provided for @buyukTuvaletaltinayati.
+  ///
+  /// In tr, this message translates to:
+  /// **'Büyük tuvaleti altına yaptı'**
+  String get buyukTuvaletaltinayati;
+
+  /// No description provided for @kucukTuvaletaltinayati.
+  ///
+  /// In tr, this message translates to:
+  /// **'Küçük tuvaleti altına yaptı'**
+  String get kucukTuvaletaltinayati;
+
+  /// No description provided for @kucukTuvalet.
+  ///
+  /// In tr, this message translates to:
+  /// **'Küçük tuvalet yaptı'**
+  String get kucukTuvalet;
+
+  /// No description provided for @ilacAlmadi.
+  ///
+  /// In tr, this message translates to:
+  /// **'İlaç almadı'**
+  String get ilacAlmadi;
+
+  /// No description provided for @zilgonderildi.
+  ///
+  /// In tr, this message translates to:
+  /// **'Zil gönderildi'**
+  String get zilgonderildi;
+
+  /// No description provided for @zilgonderilmedi.
+  ///
+  /// In tr, this message translates to:
+  /// **'Zil gönderilmedi'**
+  String get zilgonderilmedi;
+
+  /// No description provided for @buguntatil.
+  ///
+  /// In tr, this message translates to:
+  /// **'Bugün tatil'**
+  String get buguntatil;
+
+  /// No description provided for @durumbilgisi.
+  ///
+  /// In tr, this message translates to:
+  /// **'Durum bilgisi'**
+  String get durumbilgisi;
+
+  /// No description provided for @resimyuklenmedi.
+  ///
+  /// In tr, this message translates to:
+  /// **'Resim yüklenmedi'**
+  String get resimyuklenmedi;
+
+  /// No description provided for @resimyuklendi.
+  ///
+  /// In tr, this message translates to:
+  /// **'Resim yüklendi'**
+  String get resimyuklendi;
+
+  /// No description provided for @okulagelmdim.
+  ///
+  /// In tr, this message translates to:
+  /// **'Okula gelmedim'**
+  String get okulagelmdim;
+
+  /// No description provided for @uyumadi.
+  ///
+  /// In tr, this message translates to:
+  /// **'Uyumadı'**
+  String get uyumadi;
+
+  /// No description provided for @uyudu.
+  ///
+  /// In tr, this message translates to:
+  /// **'Uyudu'**
+  String get uyudu;
+
+  /// No description provided for @yok.
+  ///
+  /// In tr, this message translates to:
+  /// **'yok'**
+  String get yok;
+
+  /// No description provided for @ders.
+  ///
+  /// In tr, this message translates to:
+  /// **'Ders'**
+  String get ders;
+
+  /// No description provided for @puan.
+  ///
+  /// In tr, this message translates to:
+  /// **' öğrenci puani'**
+  String get puan;
+
+  /// No description provided for @onaylandi.
+  ///
+  /// In tr, this message translates to:
+  /// **'Onaylandı'**
+  String get onaylandi;
+
+  /// No description provided for @noAppointment.
+  ///
+  /// In tr, this message translates to:
+  /// **'Size tanımlı randevu bulunmamaktadır.'**
+  String get noAppointment;
+
+  /// No description provided for @institutionResponse.
+  ///
+  /// In tr, this message translates to:
+  /// **'↓ Kurum tarafından gelen cevap aşağıya iletilecektir. ↓'**
+  String get institutionResponse;
+
+  /// No description provided for @responseReceived.
+  ///
+  /// In tr, this message translates to:
+  /// **'Gelen cevap'**
+  String get responseReceived;
+
+  /// No description provided for @feedbackReceived.
+  ///
+  /// In tr, this message translates to:
+  /// **'Görüş ve önerileriniz alındı, en kısa zamanda cevap alanına iletilecektir, teşekkürler...'**
+  String get feedbackReceived;
+
+  /// No description provided for @gonder.
+  ///
+  /// In tr, this message translates to:
+  /// **'gönder'**
+  String get gonder;
+
+  /// No description provided for @mudur.
+  ///
+  /// In tr, this message translates to:
+  /// **'Müdür'**
+  String get mudur;
+
+  /// No description provided for @mudurYardimcisi.
+  ///
+  /// In tr, this message translates to:
+  /// **'Müdür Yardımcısı'**
+  String get mudurYardimcisi;
+
+  /// No description provided for @noMessage.
+  ///
+  /// In tr, this message translates to:
+  /// **'Mesaj Yok!'**
+  String get noMessage;
+
+  /// No description provided for @writeMessage.
+  ///
+  /// In tr, this message translates to:
+  /// **'Mesajınızı Yazın'**
+  String get writeMessage;
+
+  /// No description provided for @mobil.
+  ///
+  /// In tr, this message translates to:
+  /// **'Mobil Uygulama'**
+  String get mobil;
+
+  /// No description provided for @reddedildi.
+  ///
+  /// In tr, this message translates to:
+  /// **'reddedildi'**
+  String get reddedildi;
+
+  /// No description provided for @dersresimleri.
+  ///
+  /// In tr, this message translates to:
+  /// **'Ders Resimleri'**
+  String get dersresimleri;
+
+  /// No description provided for @borc.
+  ///
+  /// In tr, this message translates to:
+  /// **'dönemine ait borç bulunmaktadır!'**
+  String get borc;
+
+  /// No description provided for @aidetborc.
+  ///
+  /// In tr, this message translates to:
+  /// **'Aidat Uyarısı'**
+  String get aidetborc;
+
+  /// No description provided for @anket.
+  ///
+  /// In tr, this message translates to:
+  /// **'Anket'**
+  String get anket;
+
+  /// No description provided for @anketSayfasi.
+  ///
+  /// In tr, this message translates to:
+  /// **'Anket'**
+  String get anketSayfasi;
+
+  /// No description provided for @chatbot.
+  ///
+  /// In tr, this message translates to:
+  /// **'sohbet robotu'**
+  String get chatbot;
+
+  /// No description provided for @dogumtarihi.
+  ///
+  /// In tr, this message translates to:
+  /// **'Doğum Tarihi'**
+  String get dogumtarihi;
+
+  /// No description provided for @baslik.
+  ///
+  /// In tr, this message translates to:
+  /// **'Başlık'**
+  String get baslik;
+
+  /// No description provided for @redsebebiyaz.
+  ///
+  /// In tr, this message translates to:
+  /// **'ret nedeninizi Yazın'**
+  String get redsebebiyaz;
+
+  /// No description provided for @iletisim.
+  ///
+  /// In tr, this message translates to:
+  /// **'İletişim'**
+  String get iletisim;
 }
 
-class AppLocalizationDelegate extends LocalizationsDelegate<S> {
-  const AppLocalizationDelegate();
+class _SDelegate extends LocalizationsDelegate<S> {
+  const _SDelegate();
 
-  List<Locale> get supportedLocales {
-    return const <Locale>[
-      Locale.fromSubtags(languageCode: 'en'),
-      Locale.fromSubtags(languageCode: 'ar'),
-      Locale.fromSubtags(languageCode: 'de'),
-      Locale.fromSubtags(languageCode: 'fr'),
-      Locale.fromSubtags(languageCode: 'it'),
-      Locale.fromSubtags(languageCode: 'ru'),
-      Locale.fromSubtags(languageCode: 'tr'),
-    ];
+  @override
+  Future<S> load(Locale locale) {
+    return SynchronousFuture<S>(lookupS(locale));
   }
 
   @override
-  bool isSupported(Locale locale) => _isSupported(locale);
-  @override
-  Future<S> load(Locale locale) => S.load(locale);
-  @override
-  bool shouldReload(AppLocalizationDelegate old) => false;
+  bool isSupported(Locale locale) => <String>[
+        'ar',
+        'de',
+        'en',
+        'fr',
+        'it',
+        'ru',
+        'tr'
+      ].contains(locale.languageCode);
 
-  bool _isSupported(Locale locale) {
-    for (var supportedLocale in supportedLocales) {
-      if (supportedLocale.languageCode == locale.languageCode) {
-        return true;
-      }
-    }
-    return false;
+  @override
+  bool shouldReload(_SDelegate old) => false;
+}
+
+S lookupS(Locale locale) {
+  // Lookup logic when only language code is specified.
+  switch (locale.languageCode) {
+    case 'ar':
+      return SAr();
+    case 'de':
+      return SDe();
+    case 'en':
+      return SEn();
+    case 'fr':
+      return SFr();
+    case 'it':
+      return SIt();
+    case 'ru':
+      return SRu();
+    case 'tr':
+      return STr();
   }
+
+  throw FlutterError(
+      'S.delegate failed to load unsupported locale "$locale". This is likely '
+      'an issue with the localizations generation tool. Please file an issue '
+      'on GitHub with a reproducible sample app and the gen-l10n configuration '
+      'that was used.');
 }
