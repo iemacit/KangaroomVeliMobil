@@ -98,8 +98,8 @@ coverage/
 **/upload_cert.pem
 
 # Generated files
-**/generated/
-**/l10n/generated/
+# **/generated/
+# **/l10n/generated/
 
 # Temporary files
 *.tmp

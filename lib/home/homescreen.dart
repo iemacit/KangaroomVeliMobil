@@ -1205,7 +1205,7 @@ class _AnaSayfaState extends State<AnaSayfa> with WidgetsBindingObserver {
                       if (isMenuVisible('Randevular'))
                         _buildMenuItem(
                             S.of(context).randevular, 'randevu2.png', context),
-                      if (isMenuVisible('Karne'))
+                      if (isMenuVisible(S.of(context).karne))
                         _buildMenuItem(
                             S.of(context).karne, 'karne1.png', context),
                       if (isMenuVisible('Yoklama'))
@@ -1247,35 +1247,35 @@ class _AnaSayfaState extends State<AnaSayfa> with WidgetsBindingObserver {
   }
 
   bool isMenuVisible(String menuName) {
-    switch (menuName) {
-      case 'Zil':
-        return GizlenecekOgeler['_Zil'] == 1;
-      case 'Aidat':
-        return GizlenecekOgeler['_Aidat'] == 1;
-      case 'Ders Programı':
-        return GizlenecekOgeler['_DersProgrami'] == 1;
-      case 'Yemek Programı':
-        return GizlenecekOgeler['_YemekProgrami'] == 1;
-      case 'Randevular':
-        return GizlenecekOgeler['_Randevular'] == 1;
-      case 'Karne':
-        return GizlenecekOgeler['_Karne'] == 1;
-      case 'Yoklama':
-        return GizlenecekOgeler['_Yoklama'] == 1;
-      case 'Boy/Kilo':
-        return GizlenecekOgeler['_BoyKilo'] == 1;
-      case 'Bülten':
-        return GizlenecekOgeler['_Bulten'] == 1;
-      case 'Etkinlik':
-        return GizlenecekOgeler['_Etkinlik'] == 1;
-      case 'anket':
-        return GizlenecekOgeler['_Anket'] == 1;
-      case 'medicine':
-        return GizlenecekOgeler['_Ilac'] == 1;
-      case 'toilet':
-        return GizlenecekOgeler['_tuvalet'] == 1;
-      default:
-        return true; // Default to true if no specific rule exists
+    // Localization'a göre karşılaştırma yapalım
+    if (menuName == S.of(context).zil) {
+      return GizlenecekOgeler['_Zil'] == 1;
+    } else if (menuName == S.of(context).aidat) {
+      return GizlenecekOgeler['_Aidat'] == 1;
+    } else if (menuName == S.of(context).dersProgrami) {
+      return GizlenecekOgeler['_DersProgrami'] == 1;
+    } else if (menuName == S.of(context).yemekProgrami) {
+      return GizlenecekOgeler['_YemekProgrami'] == 1;
+    } else if (menuName == S.of(context).randevular) {
+      return GizlenecekOgeler['_Randevular'] == 1;
+    } else if (menuName == S.of(context).karne) {
+      return GizlenecekOgeler['_Karne'] == 1;
+    } else if (menuName == S.of(context).yoklama) {
+      return GizlenecekOgeler['_Yoklama'] == 1;
+    } else if (menuName == S.of(context).boyKilo) {
+      return GizlenecekOgeler['_BoyKilo'] == 1;
+    } else if (menuName == S.of(context).bulten) {
+      return GizlenecekOgeler['_Bulten'] == 1;
+    } else if (menuName == S.of(context).etkinlik) {
+      return GizlenecekOgeler['_Etkinlik'] == 1;
+    } else if (menuName == S.of(context).anket) {
+      return GizlenecekOgeler['_Anket'] == 1;
+    } else if (menuName == 'medicine') {
+      return GizlenecekOgeler['_Ilac'] == 1;
+    } else if (menuName == 'toilet') {
+      return GizlenecekOgeler['_tuvalet'] == 1;
+    } else {
+      return true; // Default to true if no specific rule exists
     }
   }
 
