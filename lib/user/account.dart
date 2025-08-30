@@ -139,6 +139,20 @@ class _UserRegistrationScreen2State extends State<UserRegistrationScreen2> {
   }
 
   Future<void> updateData() async {
+    if (telefon.isEmpty || sifre.isEmpty) {
+      String msg = '';
+      if (telefon.isEmpty && sifre.isEmpty) {
+        msg = 'Telefon ve şifre alanı boş olamaz';
+      } else if (telefon.isEmpty) {
+        msg = 'Telefon alanı boş olamaz';
+      } else {
+        msg = 'Şifre alanı boş olamaz';
+      }
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(msg), backgroundColor: Colors.red),
+      );
+      return;
+    }
     try {
       print("updateData $Id");
       final response = await http.put(

@@ -17,8 +17,8 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   // late Map<String, dynamic> _users = {};
-  late String _username;
-  late String _password;
+  String _username = '';
+  String _password = '';
   List<dynamic> _users = [];
 
   // late String formattedDateTime;
@@ -67,8 +67,16 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Future<void> _login() async {
     if (_username.isEmpty || _password.isEmpty) {
+      String msg = '';
+      if (_username.isEmpty && _password.isEmpty) {
+        msg = 'Lütfen telefon ve şifre alanlarını doldurun';
+      } else if (_username.isEmpty) {
+        msg = 'Lütfen telefon alanını doldurun';
+      } else {
+        msg = 'Lütfen şifre alanını doldurun';
+      }
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Lütfen kullanıcı adı ve şifreyi doldurun')),
+        SnackBar(content: Text(msg), backgroundColor: Colors.red),
       );
       return;
     }
