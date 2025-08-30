@@ -7,4 +7,9 @@ class UserManager {
 
   Map<String, dynamic> users = {};
   OgrenciBilgileri? ogrenciBilgileri;
+
+  void clear() {
+    users = {};
+    ogrenciBilgileri = null;
+  }
 }

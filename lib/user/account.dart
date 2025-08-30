@@ -7,6 +7,8 @@ import '../../theme.dart';
 import '../home/homescreen.dart';
 import '../menu/Ayarlar.dart';
 import 'login.dart';
+import '../model/UserManager.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class UserRegistrationScreen2 extends StatefulWidget {
   @override
@@ -61,19 +63,29 @@ class _UserRegistrationScreen2State extends State<UserRegistrationScreen2> {
   }
 
   Future<void> _loadUserData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String sifre = prefs.getString('sifre') ?? "";
+    String username = prefs.getString('username') ?? "";
+    var url = Uri.parse(
+        'http://37.148.210.227:8001/api/KangaroomOgrenci/VeliGiris/$username/$sifre');
+
     try {
-      final file = await _localFile;
-      final contents = await file.readAsString();
-      setState(() {
-        _users = jsonDecode(contents);
+      var response = await http.get(url);
+      List<dynamic> userList = json.decode(response.body);
+      if (userList.isNotEmpty) {
+        setState(() {
+          _users = userList[0];
+          Id = _users["id"];
+          ad = _users["ad"];
+          soyad = _users["soyad"];
+        });
+        // UserManager'a da ata (isteğe bağlı)
+        UserManager().users = _users;
         print("_loadUserData() çalışıyor...$_users");
-      });
-      // Dosyadaki verileri yazdır
-      print('_loadUserData() tamamlandı...');
-      Id = _users["id"];
-      ad = _users["ad"];
-      soyad = _users["soyad"];
-      print("id---->$Id");
+        print("id---->$Id");
+      } else {
+        print("Kullanıcı verisi bulunamadı.");
+      }
     } catch (e) {
       print("Error loading user data: $e");
     }
@@ -95,7 +107,7 @@ class _UserRegistrationScreen2State extends State<UserRegistrationScreen2> {
       // Navigator ile ekranı değiştir
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => AnaSayfa()),
+        MaterialPageRoute(builder: (context) => LoginScreen()),
       );
     } catch (e) {
       print(e);
@@ -135,18 +147,23 @@ class _UserRegistrationScreen2State extends State<UserRegistrationScreen2> {
           'Content-Type': 'application/json; charset=UTF-8',
         },
         body: jsonEncode(<String, dynamic>{
-          "Id": Id,
-          "Ad": ad,
-          "Soyad": soyad,
-          "Telefon": telefon,
-          "Sifre": sifre,
-          "OkulId": _users["okulid"],
+          "id": Id,
+          "ad": ad,
+          "soyad": soyad,
+          "telefon": telefon,
+          "sifre": sifre,
+          "okulId": _users["okulId"],
         }),
       );
-      if (response.statusCode != 204) {
-        throw Exception('veriler güncellenemedi...');
-      } else {
+      if (response.statusCode == 200 || response.statusCode == 204) {
         print("updateData() veriler başarıyla güncellendi");
+        // SharedPreferences'taki username ve sifre'yi temizle
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        prefs.clear();
+        // UserManager'dan da çıkış yap
+        UserManager().clear();
+      } else {
+        throw Exception('veriler güncellenemedi...');
       }
     } catch (e) {
       print('Error updating data: $e');
@@ -201,11 +218,14 @@ class _UserRegistrationScreen2State extends State<UserRegistrationScreen2> {
         canPop: false,
         onPopInvokedWithResult: (didPop, result) {
           if (didPop) return;
+          var users = UserManager().ogrenciBilgileri;
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
                 builder: (context) => Ayarlar(
-                      okulId: _users["okulid"],
+                      okulId: users != null && users.okulId != null
+                          ? users.okulId as int
+                          : -1,
                     )),
           );
         },
@@ -228,10 +248,7 @@ class _UserRegistrationScreen2State extends State<UserRegistrationScreen2> {
               onPressed: () {
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(
-                      builder: (context) => Ayarlar(
-                            okulId: _users["okulid"],
-                          )),
+                  MaterialPageRoute(builder: (context) => AnaSayfa()),
                 );
               },
             ),
@@ -290,7 +307,6 @@ class _UserRegistrationScreen2State extends State<UserRegistrationScreen2> {
                             "telefon": telefon,
                             "sifre": sifre,
                             "okulid": _users["okulid"],
-                            "login": 1,
                           };
                           _updateLoginJson(newUser);
                           updateData();
@@ -318,7 +334,6 @@ class _UserRegistrationScreen2State extends State<UserRegistrationScreen2> {
                             "telefon": "",
                             "sifre": "",
                             "okulid": -1,
-                            "login": 0,
                           };
                           _updateLoginJson2(newUser);
                           deleteData();
