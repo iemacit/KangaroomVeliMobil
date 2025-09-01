@@ -45,7 +45,7 @@ dependencies:
   another_flushbar: ^1.12.30
   webview_flutter: ^4.13.0
   wechat_assets_picker: ^9.0.0
-
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter

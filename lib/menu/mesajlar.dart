@@ -69,7 +69,7 @@ class _MessageListPageState extends State<MessageListPage> {
   Future<void> getAccessTokenOgretmen() async {
     try {
       final serviceAccountJson = await rootBundle.loadString(
-          'assets/firebase/kangaroomogretmen-firebase-adminsdk-civvf-ed84febc03.json');
+          'assets/firebase/kangaroommobileogretmen-firebase-adminsdk-fbsvc-415ddcbee2.json');
 
       final accountCredentials = ServiceAccountCredentials.fromJson(
         json.decode(serviceAccountJson),
@@ -102,7 +102,7 @@ class _MessageListPageState extends State<MessageListPage> {
   Future<void> notification(String body) async {
     final token = await OgretmenBilgileriGetirToken(widget.kimeId);
     final String apiUrl =
-        'https://fcm.googleapis.com/v1/projects/kangaroomogretmen/messages:send';
+        'https://fcm.googleapis.com/v1/projects/kangaroommobileogretmen/messages:send';
 
     try {
       final response = await http.post(

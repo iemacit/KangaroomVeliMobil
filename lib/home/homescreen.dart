@@ -263,7 +263,7 @@ class _AnaSayfaState extends State<AnaSayfa> with WidgetsBindingObserver {
   Future<void> getAccessTokenOgretmen() async {
     try {
       final serviceAccountJson = await rootBundle.loadString(
-          'assets/firebase/kangaroomogretmen-firebase-adminsdk-civvf-ed84febc03.json');
+          'assets/firebase/kangaroommobileogretmen-firebase-adminsdk-fbsvc-415ddcbee2.json');
 
       final accountCredentials = ServiceAccountCredentials.fromJson(
         json.decode(serviceAccountJson),
@@ -630,7 +630,7 @@ class _AnaSayfaState extends State<AnaSayfa> with WidgetsBindingObserver {
     final token = await OgretmenBilgileriGetirToken(ogrenciId);
 
     final String apiUrl =
-        'https://fcm.googleapis.com/v1/projects/kangaroomogretmen/messages:send';
+        'https://fcm.googleapis.com/v1/projects/kangaroommobileogretmen/messages:send';
 
     try {
       final response = await http.post(
