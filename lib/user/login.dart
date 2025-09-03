@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:kangaroom/main.dart';
 import 'package:kangaroom/user/SifreUnuttumScreen.dart';
@@ -82,7 +83,7 @@ class _LoginScreenState extends State<LoginScreen> {
     }
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    var token = await prefs.getString('deviceToken');
+    String? token = await prefs.getString('deviceToken');
     // Bekleme ekranını gösteriyoruz
     _showLoadingDialog();
 
@@ -104,6 +105,40 @@ class _LoginScreenState extends State<LoginScreen> {
         await prefs.setString('username', _users[0]['telefon']);
         await prefs.setString('sifre', _users[0]['sifre']);
         await prefs.setInt('veliId', _users[0]['id']);
+
+        // Eğer token yoksa yeni bir token al
+        if (token == null || token.isEmpty) {
+          try {
+            final firebaseMessaging =
+                await FirebaseMessaging.instance.getToken();
+            if (firebaseMessaging != null) {
+              await prefs.setString('deviceToken', firebaseMessaging);
+              print('Yeni deviceToken alındı ve kaydedildi: ' +
+                  firebaseMessaging);
+              // Yeni tokenı veritabanına gönder
+              int? veliId = prefs.getInt('veliId');
+              if (veliId != null) {
+                var url = Uri.parse(
+                    'http://37.148.210.227:8001/api/KangaroomOgrenci/ogrenciToken/$veliId/$firebaseMessaging');
+                try {
+                  var response = await http.get(url);
+                  if (response.statusCode == 200) {
+                    print('Yeni token veritabanına kaydedildi (login.dart).');
+                  } else {
+                    print(
+                        'Yeni token veritabanına kaydedilemedi. Status: \'${response.statusCode}\'');
+                  }
+                } catch (e) {
+                  print('Yeni token gönderim hatası (login.dart): $e');
+                }
+              }
+            } else {
+              print('Yeni deviceToken alınamadı!');
+            }
+          } catch (e) {
+            print('Yeni deviceToken alınırken hata: $e');
+          }
+        }
 
         print("login yapıldı ");
         Navigator.pushReplacement(

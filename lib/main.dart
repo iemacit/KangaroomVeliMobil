@@ -22,16 +22,43 @@ void main() async {
   await initializeDateFormatting('tr_TR', null);
   final colors = await ThemeHelper.loadColors();
   final locale = await _loadSavedLocale();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  // ✅ Tekrar tekrar initialize olmasın diye kontrol ekliyoruz
+  if (Firebase.apps.isEmpty) {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+  }
 
   await _requestNotificationPermissionAndToken();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
+  // 🔄 Token değişimini dinle ve güncelle
+  FirebaseMessaging.instance.onTokenRefresh.listen((newToken) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('deviceToken', newToken);
+    print('🔄 Yeni deviceToken: ' + newToken);
+    // VeliId varsa, yeni token'ı veritabanına gönder
+    var veliId = prefs.getInt('veliId');
+    if (veliId != null) {
+      // _MyAppState.saveToken statik değil, bu yüzden burada doğrudan http ile gönderiyoruz
+      var url = Uri.parse(
+          'http://37.148.210.227:8001/api/KangaroomOgrenci/ogrenciToken/$veliId/$newToken');
+      try {
+        var response = await http.get(url);
+        if (response.statusCode == 200) {
+          print('Yeni token veritabanına kaydedildi.');
+        } else {
+          print(
+              'Yeni token veritabanına kaydedilemedi. Status: \'${response.statusCode}\'');
+        }
+      } catch (e) {
+        print('Yeni token gönderim hatası: $e');
+      }
+    }
+  });
+
   runApp(MyApp(colors: colors, initialLocale: locale));
 }
-
 
 class MyHttpOverrides extends HttpOverrides {
   @override
@@ -44,7 +71,11 @@ class MyHttpOverrides extends HttpOverrides {
 
 // 🔄 Arka planda mesaj alma
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  await Firebase.initializeApp();
+  if (Firebase.apps.isEmpty) {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+  }
   print("📩 [Arka Plan] Bildirim: ${message.notification?.title}");
 }
 
@@ -116,39 +147,39 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
 // 🔐 Firebase admin access token alma
-  Future<void> getAccessTokenOgrenci() async {
-    try {
-      final serviceAccountJson = await rootBundle.loadString(
-          'assets/firebase/kangarom-cf7dc-firebase-adminsdk-ytf2m-5b939011a6.json');
-      final accountCredentials =
-          ServiceAccountCredentials.fromJson(json.decode(serviceAccountJson));
+  // Future<void> getAccessTokenOgrenci() async {
+  //   try {
+  //     final serviceAccountJson = await rootBundle.loadString(
+  //         'assets/firebase/kangarom-cf7dc-firebase-adminsdk-ytf2m-5b939011a6.json');
+  //     final accountCredentials =
+  //         ServiceAccountCredentials.fromJson(json.decode(serviceAccountJson));
 
-      const scopes = ['https://www.googleapis.com/auth/firebase.messaging'];
-      final client = http.Client();
+  //     const scopes = ['https://www.googleapis.com/auth/firebase.messaging'];
+  //     final client = http.Client();
 
-      try {
-        final accessCredentials =
-            await obtainAccessCredentialsViaServiceAccount(
-          accountCredentials,
-          scopes,
-          client,
-        );
+  //     try {
+  //       final accessCredentials =
+  //           await obtainAccessCredentialsViaServiceAccount(
+  //         accountCredentials,
+  //         scopes,
+  //         client,
+  //       );
 
-        SharedPreferences prefs = await SharedPreferences.getInstance();
-        await prefs.setString(
-            'accessTokenOgrenci', accessCredentials.accessToken.data);
+  //       SharedPreferences prefs = await SharedPreferences.getInstance();
+  //       await prefs.setString(
+  //           'accessTokenOgrenci', accessCredentials.accessToken.data);
 
-        print(
-            '🎫 accessTokenOgrenci: ${prefs.getString('accessTokenOgrenci')}');
-      } catch (e) {
-        print('❌ Access token alınamadı: $e');
-      } finally {
-        client.close();
-      }
-    } catch (e) {
-      print('❌ Service account JSON yüklenemedi: $e');
-    }
-  }
+  //       print(
+  //           '🎫 accessTokenOgrenci: ${prefs.getString('accessTokenOgrenci')}');
+  //     } catch (e) {
+  //       print('❌ Access token alınamadı: $e');
+  //     } finally {
+  //       client.close();
+  //     }
+  //   } catch (e) {
+  //     print('❌ Service account JSON yüklenemedi: $e');
+  //   }
+  // }
 
   bool _isLoading = true;
   Map<String, dynamic> _users = {};

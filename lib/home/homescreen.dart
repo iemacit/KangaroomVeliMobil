@@ -263,7 +263,7 @@ class _AnaSayfaState extends State<AnaSayfa> with WidgetsBindingObserver {
   Future<void> getAccessTokenOgretmen() async {
     try {
       final serviceAccountJson = await rootBundle.loadString(
-          'assets/firebase/kangaroommobileogretmen-firebase-adminsdk-fbsvc-415ddcbee2.json');
+          'assets/firebase/kangaroommobileogretmen-firebase-adminsdk-fbsvc-2851ac58ac.json');
 
       final accountCredentials = ServiceAccountCredentials.fromJson(
         json.decode(serviceAccountJson),
@@ -636,29 +636,32 @@ class _AnaSayfaState extends State<AnaSayfa> with WidgetsBindingObserver {
       final response = await http.post(
         Uri.parse(apiUrl),
         headers: <String, String>{
-          'Authorization': 'Bearer ${accessToken}',
+          'Authorization': 'Bearer $accessToken',
+          'Content-Type': 'application/json; charset=UTF-8',
         },
-        body: jsonEncode(<String, dynamic>{
+        body: jsonEncode({
           "message": {
             "token": token,
-            "notification": {"body": veli, "title": ogrenciAd}
+            "notification": {
+              "title": ogrenciAd,
+              "body": veli,
+            },
+            // opsiyonel: Android ayarları
+            "android": {
+              "priority": "HIGH",
+            },
           }
         }),
       );
 
       if (response.statusCode == 200) {
-        print("/////////////-------göndeildi------////////////////");
-        print("Mesaj gönderildi:ogretmen");
-        print("Mesaj gönderildi: ${token}");
-        print("Mesaj gönderildi: ${accessToken}");
+        print("Mesaj gönderildi: $token");
       } else {
-        print("/////////////-------hatta------////////////////");
-        print("Mesaj gönderilmedi token: ${token}");
-        print("Mesaj gönderilmedi:ogretmen");
-        print("Mesaj gönderilmedi accessToken: ${accessToken}");
+        print("Mesaj gönderilemedi: ${response.statusCode}");
+        print("Body: ${response.body}");
       }
     } catch (e) {
-      print(e);
+      print("Hata: $e");
     }
   }
 

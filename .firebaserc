@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "firebase init": "kangaroom-fb720",
+    "dev": "kangaroom-fb720"
+  },
+  "targets": {},
+  "etags": {}
+}
