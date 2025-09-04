@@ -22,40 +22,44 @@ void main() async {
   await initializeDateFormatting('tr_TR', null);
   final colors = await ThemeHelper.loadColors();
   final locale = await _loadSavedLocale();
-  // ✅ Tekrar tekrar initialize olmasın diye kontrol ekliyoruz
-  if (Firebase.apps.isEmpty) {
+  // ✅ Firebase'i sadece bir kez initialize et
+  try {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
+  } catch (e) {
+    // Firebase zaten initialize edilmişse hata verme
+    print("Firebase zaten initialize edilmiş: $e");
   }
 
-  await _requestNotificationPermissionAndToken();
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  // Firebase Messaging geçici olarak devre dışı (API key eksik)
+  // await _requestNotificationPermissionAndToken();
+  // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
-  // 🔄 Token değişimini dinle ve güncelle
-  FirebaseMessaging.instance.onTokenRefresh.listen((newToken) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('deviceToken', newToken);
-    print('🔄 Yeni deviceToken: ' + newToken);
-    // VeliId varsa, yeni token'ı veritabanına gönder
-    var veliId = prefs.getInt('veliId');
-    if (veliId != null) {
-      // _MyAppState.saveToken statik değil, bu yüzden burada doğrudan http ile gönderiyoruz
-      var url = Uri.parse(
-          'http://37.148.210.227:8001/api/KangaroomOgrenci/ogrenciToken/$veliId/$newToken');
-      try {
-        var response = await http.get(url);
-        if (response.statusCode == 200) {
-          print('Yeni token veritabanına kaydedildi.');
-        } else {
-          print(
-              'Yeni token veritabanına kaydedilemedi. Status: \'${response.statusCode}\'');
-        }
-      } catch (e) {
-        print('Yeni token gönderim hatası: $e');
-      }
-    }
-  });
+  // 🔄 Token değişimini dinle ve güncelle (geçici olarak devre dışı - API key eksik)
+  // FirebaseMessaging.instance.onTokenRefresh.listen((newToken) async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   await prefs.setString('deviceToken', newToken);
+  //   print('🔄 Yeni deviceToken: ' + newToken);
+  //   // VeliId varsa, yeni token'ı veritabanına gönder
+  //   var veliId = prefs.getInt('veliId');
+  //   if (veliId != null) {
+  //     // _MyAppState.saveToken statik değil, bu yüzden burada doğrudan http ile gönderiyoruz
+  //     var url = Uri.parse(
+  //         'http://37.148.210.227:8001/api/KangaroomOgrenci/ogrenciToken/$veliId/$newToken');
+  //     try {
+  //       var response = await http.get(url);
+  //       if (response.statusCode == 200) {
+  //         print('Yeni token veritabanına kaydedildi.');
+  //       } else {
+  //         print(
+  //             'Yeni token veritabanına kaydedilemedi. Status: \'${response.statusCode}\'');
+  //       }
+  //     } catch (e) {
+  //       print('Yeni token gönderim hatası: $e');
+  //     }
+  //   }
+  // });
 
   runApp(MyApp(colors: colors, initialLocale: locale));
 }

@@ -384,6 +384,10 @@ class _AnaSayfaState extends State<AnaSayfa> with WidgetsBindingObserver {
         GizlenecekOgeler = json.decode(response.body)[0];
       });
 
+      // Debug: GizlenecekOgeler içeriğini yazdır
+      print("🔍 GizlenecekOgeler: $GizlenecekOgeler");
+      print("🔍 _Anket değeri: ${GizlenecekOgeler['_Anket']}");
+
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setString('gizlenecekOgeler', json.encode(GizlenecekOgeler));
     } else {
@@ -1272,7 +1276,9 @@ class _AnaSayfaState extends State<AnaSayfa> with WidgetsBindingObserver {
     } else if (menuName == S.of(context).etkinlik) {
       return GizlenecekOgeler['_Etkinlik'] == 1;
     } else if (menuName == S.of(context).anket) {
-      return GizlenecekOgeler['_Anket'] == 1;
+      print("🔍 Anket kontrolü - menuName: $menuName, _Anket değeri: ${GizlenecekOgeler['_Anket']}");
+      // Eğer _Anket değeri null ise varsayılan olarak göster (1)
+      return GizlenecekOgeler['_Anket'] == 1 || GizlenecekOgeler['_Anket'] == null;
     } else if (menuName == 'medicine') {
       return GizlenecekOgeler['_Ilac'] == 1;
     } else if (menuName == 'toilet') {
