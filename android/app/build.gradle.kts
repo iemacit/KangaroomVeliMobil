@@ -38,6 +38,9 @@ android {
                 storePassword = keyProperties["storePassword"] as String
                 keyAlias = keyProperties["keyAlias"] as String
                 keyPassword = keyProperties["keyPassword"] as String
+                if (keyProperties.containsKey("storeType")) {
+                    storeType = keyProperties["storeType"] as String
+                }
             }
         }
     }

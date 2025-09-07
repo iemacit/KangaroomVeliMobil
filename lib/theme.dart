@@ -119,20 +119,37 @@ class ThemeHelper {
     final directory = await getApplicationDocumentsDirectory();
     return directory.path;
   }
-
+  
   Future<Map<String, dynamic>> _loadUserData() async {
     try {
       final file = await _localFile2;
+       if (!file.existsSync()) {
+        await _copyTemaFromAssets();
+      }
       final contents = await file.readAsString();
       final Map<String, dynamic> tema = jsonDecode(contents);
       print("Tema verisi yüklendi: $tema");
-      return tema;
+      // Hata durumunda varsayılan tema döndür
+      return {
+        "Renk1": "FFEE6A68",
+        "Renk2": "FF28235D", 
+        "Renk3": "FFBCDAFF"
+      };
     } catch (e) {
       print("Hata: Tema verisi yüklenirken bir hata oluştu: $e");
       return {}; // Hata durumunda boş bir harita döndür
     }
   }
-
+  Future<void> _copyTemaFromAssets() async {
+    try {
+      final file = await _localFile2;
+      final defaultTema = '{"Renk1": "FFEE6A68","Renk2": "FF28235D","Renk3":"FF28235D"}';
+      await file.writeAsString(defaultTema);
+      print("Varsayılan tema dosyası oluşturuldu");
+    } catch (e) {
+      print("Tema dosyası oluşturulurken hata: $e");
+    }
+  }
   static Future<Map<String, Color>> loadColors() async {
     final helper = ThemeHelper();
     final tema = await helper._loadUserData();
@@ -146,7 +163,11 @@ class ThemeHelper {
 
   // Hex kodundan Color oluşturma fonksiyonu
   static Color _colorFromHex(String hexString) {
-    final hex = hexString.replaceAll('#', '').toUpperCase();
+    String hex = hexString.replaceAll('#', '').replaceAll('0x', '').replaceAll('0X', '').toUpperCase();
+     // Eğer FF ile başlamıyorsa FF ekle (alpha channel)
+    if (!hex.startsWith('FF')) {
+      hex = 'FF$hex';
+    }
     final intColor = int.parse(hex, radix: 16);
     return Color(intColor);
   }

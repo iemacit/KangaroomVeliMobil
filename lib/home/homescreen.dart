@@ -643,7 +643,7 @@ class _AnaSayfaState extends State<AnaSayfa> with WidgetsBindingObserver {
           "message": {
             "token": token,
             "notification": {
-              "title": ogrenciAd,
+              "title": ogrenciAd+" "+ogrenciSoyad,
               "body": veli,
             },
             // opsiyonel: Android ayarları
@@ -1272,7 +1272,8 @@ class _AnaSayfaState extends State<AnaSayfa> with WidgetsBindingObserver {
     } else if (menuName == S.of(context).etkinlik) {
       return GizlenecekOgeler['_Etkinlik'] == 1;
     } else if (menuName == S.of(context).anket) {
-      return GizlenecekOgeler['_Anket'] == 1;
+      return GizlenecekOgeler['_Anket'] == 1 || GizlenecekOgeler['_Anket'] == null;
+
     } else if (menuName == 'medicine') {
       return GizlenecekOgeler['_Ilac'] == 1;
     } else if (menuName == 'toilet') {

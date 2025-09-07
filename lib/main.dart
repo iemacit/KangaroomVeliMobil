@@ -29,7 +29,7 @@ void main() async {
     );
   }
 
-  await _requestNotificationPermissionAndToken();
+   await _requestNotificationPermissionAndToken();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
   // 🔄 Token değişimini dinle ve güncelle
@@ -98,12 +98,12 @@ Future<void> _requestNotificationPermissionAndToken() async {
   }
 
   // Token al ve kaydet
-  String? token = await messaging.getToken();
-  if (token != null) {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('deviceToken', token);
-    print("📱 Token:$token");
-  }
+  // String? token = await messaging.getToken();
+  // if (token != null) {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   await prefs.setString('deviceToken', token);
+  //   print("📱 Token:$token");
+  // }
 
   // Ön planda bildirim al
   FirebaseMessaging.onMessage.listen((RemoteMessage message) {

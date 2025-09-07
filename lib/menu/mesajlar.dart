@@ -27,7 +27,16 @@ class MessageListPage extends StatefulWidget {
   _MessageListPageState createState() => _MessageListPageState();
 }
 
-class _MessageListPageState extends State<MessageListPage> {
+class _MessageListPageState extends State<MessageListPage>
+    with WidgetsBindingObserver {
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      // Uygulama tekrar öne gelince mesajları güncelle
+      fetchMessages(widget.kimeId, yil, ay, gun);
+    }
+  }
+
   List<dynamic> messages = [];
   List<dynamic> filteredMessages = [];
   TextEditingController _messageController = TextEditingController();
@@ -46,6 +55,7 @@ class _MessageListPageState extends State<MessageListPage> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     getAccessTokenOgretmen().then((_) {
       print("******************    :  $accessToken");
     });
@@ -69,7 +79,7 @@ class _MessageListPageState extends State<MessageListPage> {
   Future<void> getAccessTokenOgretmen() async {
     try {
       final serviceAccountJson = await rootBundle.loadString(
-          'assets/firebase/kangaroommobileogretmen-firebase-adminsdk-fbsvc-415ddcbee2.json');
+          'assets/firebase/kangaroommobileogretmen-firebase-adminsdk-fbsvc-2851ac58ac.json');
 
       final accountCredentials = ServiceAccountCredentials.fromJson(
         json.decode(serviceAccountJson),
@@ -193,6 +203,38 @@ class _MessageListPageState extends State<MessageListPage> {
               msg['kime'] == filterId || msg['createUserId'] == filterId)
           .toList();
     });
+    // Sadece kullanıcıya gelen mesajlar için okundu isteği at
+    markIncomingMessagesAsRead(filteredMessages);
+  }
+
+  Future<void> markIncomingMessagesAsRead(List<dynamic> messages) async {
+    int myId;
+    if (selectedRole == 'Öğretmen') {
+      myId = widget.senderId;
+    } else if (selectedRole == 'Muhasebe') {
+      myId = users?.muhasebeci ?? -2;
+    } else if (selectedRole == 'Müdür') {
+      myId = users?.mudur ?? -1;
+    } else {
+      myId = widget.kimeId;
+    }
+
+    for (var msg in messages) {
+      // Sana gelen mesajlar: kime alanı o anki id ise
+      if (msg['createUserId'] == myId) {
+        final id = msg['id'];
+        if (id != null) {
+          try {
+            await http.post(
+              Uri.parse(
+                  'http://37.148.210.227:8001/api/KangaroomMesaj/okundu/$id'),
+            );
+          } catch (e) {
+            print('Okundu işareti hatası: $e');
+          }
+        }
+      }
+    }
   }
 
   Future<void> mesajGonder(String mesaj, int senderId, int kimeId) async {
@@ -229,7 +271,10 @@ class _MessageListPageState extends State<MessageListPage> {
       );
 
       if (response.statusCode == 201) {
-        notification(mesaj);
+        // Sadece öğretmen seçili ise bildirim gönder
+        if (selectedRole == 'Öğretmen') {
+          notification(mesaj);
+        }
         setState(() {
           messages.add({
             "id": 0,
@@ -381,13 +426,32 @@ class _MessageListPageState extends State<MessageListPage> {
                                       : SizedBox(
                                           height: 1,
                                         ),
-                                  Text(
-                                    DateFormat.Hm().format(
-                                        DateTime.parse(message['createDate'])),
-                                    style: TextStyle(
-                                      color: Colors.black54,
-                                      fontSize: 12,
-                                    ),
+                                  Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      if (!isSentByCurrentUser)
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(right: 4.0),
+                                          child: Icon(
+                                            message['okundu'] == 1
+                                                ? Icons.done_all
+                                                : Icons.done,
+                                            size: 18,
+                                            color: message['okundu'] == 1
+                                                ? Colors.blue
+                                                : Colors.grey,
+                                          ),
+                                        ),
+                                      Text(
+                                        DateFormat.Hm().format(DateTime.parse(
+                                            message['createDate'])),
+                                        style: TextStyle(
+                                          color: Colors.black54,
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ],
                               ),
@@ -398,33 +462,35 @@ class _MessageListPageState extends State<MessageListPage> {
                     },
                   ),
           ),
-          Padding(
-            padding: EdgeInsets.all(10),
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    controller: _messageController,
-                    decoration: InputDecoration(
-                      hintText: S.of(context).writeMessage,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
+          SafeArea(
+            child: Padding(
+              padding: EdgeInsets.all(10),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      controller: _messageController,
+                      decoration: InputDecoration(
+                        hintText: S.of(context).writeMessage,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
                       ),
                     ),
                   ),
-                ),
-                SizedBox(width: 10),
-                IconButton(
-                  icon: Icon(Icons.send, color: Colors.blue),
-                  onPressed: () {
-                    if (_messageController.text.isNotEmpty) {
-                      mesajGonder(_messageController.text, widget.senderId,
-                          widget.kimeId);
-                      // notification(_messageController.text);
-                    }
-                  },
-                ),
-              ],
+                  SizedBox(width: 10),
+                  IconButton(
+                    icon: Icon(Icons.send, color: Colors.blue),
+                    onPressed: () {
+                      if (_messageController.text.isNotEmpty) {
+                        mesajGonder(_messageController.text, widget.senderId,
+                            widget.kimeId);
+                        // notification(_messageController.text);
+                      }
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
         ],
@@ -434,6 +500,7 @@ class _MessageListPageState extends State<MessageListPage> {
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     _messageController.dispose();
     super.dispose();
   }
