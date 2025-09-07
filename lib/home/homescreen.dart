@@ -384,6 +384,10 @@ class _AnaSayfaState extends State<AnaSayfa> with WidgetsBindingObserver {
         GizlenecekOgeler = json.decode(response.body)[0];
       });
 
+      // Debug: GizlenecekOgeler içeriğini yazdır
+      print("🔍 GizlenecekOgeler: $GizlenecekOgeler");
+      print("🔍 _Anket değeri: ${GizlenecekOgeler['_Anket']}");
+
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setString('gizlenecekOgeler', json.encode(GizlenecekOgeler));
     } else {

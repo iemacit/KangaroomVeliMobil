@@ -137,9 +137,15 @@ class ThemeHelper {
       };
     } catch (e) {
       print("Hata: Tema verisi yüklenirken bir hata oluştu: $e");
-      return {}; // Hata durumunda boş bir harita döndür
+      // Hata durumunda varsayılan tema döndür
+      return {
+        "Renk1": "FFEE6A68",
+        "Renk2": "FF28235D", 
+        "Renk3": "FFBCDAFF"
+      };
     }
   }
+
   Future<void> _copyTemaFromAssets() async {
     try {
       final file = await _localFile2;
@@ -150,6 +156,7 @@ class ThemeHelper {
       print("Tema dosyası oluşturulurken hata: $e");
     }
   }
+  
   static Future<Map<String, Color>> loadColors() async {
     final helper = ThemeHelper();
     final tema = await helper._loadUserData();
