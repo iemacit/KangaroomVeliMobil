@@ -5,13 +5,16 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import '../model/haftalikDersProgrami.dart';
 import 'homescreen.dart';
+import 'package:dio/dio.dart';
 
 import 'package:kangaroom/generated/l10n.dart';
 //S.of(context).aidat
 
 class DersEkrani extends StatefulWidget {
   final int okulId;
-  DersEkrani({required this.okulId});
+  final int ogrenciId;
+
+  DersEkrani({required this.okulId, required this.ogrenciId});
 
   @override
   _DersEkraniState createState() => _DersEkraniState();
@@ -26,8 +29,17 @@ class _DersEkraniState extends State<DersEkrani> {
   void initState() {
     super.initState();
     _fetchClosestDers();
+    _sendEHaftalikDersOkundu(widget.ogrenciId);
   }
-
+  Future<void> _sendEHaftalikDersOkundu(int ogrenciId) async {
+    try {
+        await Dio().post(
+          "http://37.148.210.227:8001/api/KangaroomDersProgramPdf/haftalıkDersOkundu/$ogrenciId",
+        );
+      } catch (e) {
+        print("Error sending haftalıkDersOkundu: $e");
+      }
+  }
   Future<void> _fetchClosestDers() async {
     setState(() {
       _isLoading = true;

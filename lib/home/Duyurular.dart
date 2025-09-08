@@ -5,10 +5,13 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';
 import 'package:kangaroom/theme.dart';
 import 'package:kangaroom/generated/l10n.dart';
+import 'package:dio/dio.dart';
 
 class Duyurular extends StatefulWidget {
   final int okulId;
-  const Duyurular({super.key, required this.okulId});
+  final int ogrenciId;
+
+  const Duyurular({super.key, required this.okulId, required this.ogrenciId});
 
   @override
   _DuyurularState createState() => _DuyurularState();
@@ -22,8 +25,18 @@ class _DuyurularState extends State<Duyurular> {
   void initState() {
     super.initState();
     _loadAnnouncements(widget.okulId);
+    _sendDuyuruOkundu(widget.ogrenciId);
   }
 
+  Future<void> _sendDuyuruOkundu(int ogrenciId) async {
+    try {
+      await Dio().post(
+        "http://37.148.210.227:8001/api/KangaroomDuyuru/duyuruOkundu/$ogrenciId",
+      );
+    } catch (e) {
+      print("Error sending duyuruOkundu: $e");
+    }
+  }
   Future<void> _loadAnnouncements(int okulId) async {
     try {
       final response = await http.get(Uri.parse(

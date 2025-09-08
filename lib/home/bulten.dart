@@ -11,8 +11,9 @@ import 'package:kangaroom/generated/l10n.dart';
 
 class Bulten extends StatefulWidget {
   int okulid;
+  int ogrenciId;
 
-  Bulten(this.okulid);
+  Bulten(this.okulid, this.ogrenciId);
 
   @override
   State<Bulten> createState() => _BultenState();
@@ -30,8 +31,17 @@ class _BultenState extends State<Bulten> {
     _baseurl =
         "http://37.148.210.227:8001/api/KangaroomBulten/${widget.okulid}";
     _fetchItems();
+    _sendBultenOkundu(widget.ogrenciId);
   }
-
+  Future<void> _sendBultenOkundu(int ogrenciId) async {
+    try {
+      await Dio().post(
+        "http://37.148.210.227:8001/api/KangaroomBulten/bbultenOkundu/$ogrenciId",
+      );
+    } catch (e) {
+      print("Error sending bultenOkundu: $e");
+    }
+  }
   Future<void> _fetchItems() async {
     try {
       setState(() {

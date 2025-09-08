@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:dio/dio.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -25,8 +26,17 @@ class _EtkinlikAnaSayfasiState extends State<EtkinlikAnaSayfasi> {
   void initState() {
     super.initState();
     EtkinlikleriGetir(widget.ogrenciId);
+    _sendEtkinlikOkundu(widget.ogrenciId);
   }
-
+  Future<void> _sendEtkinlikOkundu(int ogrenciId) async {
+    try {
+        await Dio().post(
+          "http://37.148.210.227:8001/api/KangaroomEtkinlik/etkinlikOkundu/$ogrenciId",
+        );
+      } catch (e) {
+        print("Error sending etkinlikOkundu: $e");
+      }
+    }
   Future<void> EtkinlikleriGetir(int ogrenciId) async {
     try {
       var response = await http.get(Uri.parse(

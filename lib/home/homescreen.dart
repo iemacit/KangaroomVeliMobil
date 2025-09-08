@@ -132,7 +132,7 @@ class _AnaSayfaState extends State<AnaSayfa> with WidgetsBindingObserver {
         });
       });
       _fetchitems(_users['okulId']);
-      timer = Timer.periodic(Duration(seconds: 10), (t) {
+      timer = Timer.periodic(Duration(seconds: 8), (t) {
         OgrenciBilgileriGetir(_users['id']);
       });
     });
@@ -647,7 +647,7 @@ class _AnaSayfaState extends State<AnaSayfa> with WidgetsBindingObserver {
           "message": {
             "token": token,
             "notification": {
-              "title": ogrenciAd+" "+ogrenciSoyad,
+              "title": ogrenciAd + " " + ogrenciSoyad,
               "body": veli,
             },
             // opsiyonel: Android ayarları
@@ -1049,6 +1049,7 @@ class _AnaSayfaState extends State<AnaSayfa> with WidgetsBindingObserver {
                                 MaterialPageRoute(
                                     builder: (context) => YemekProgrami(
                                           okulId: _users["okulId"],
+                                          ogrenciId: ogrenciId,
                                         )),
                               );
                             },
@@ -1276,8 +1277,8 @@ class _AnaSayfaState extends State<AnaSayfa> with WidgetsBindingObserver {
     } else if (menuName == S.of(context).etkinlik) {
       return GizlenecekOgeler['_Etkinlik'] == 1;
     } else if (menuName == S.of(context).anket) {
-      return GizlenecekOgeler['_Anket'] == 1 || GizlenecekOgeler['_Anket'] == null;
-
+      return GizlenecekOgeler['_Anket'] == 1 ||
+          GizlenecekOgeler['_Anket'] == null;
     } else if (menuName == 'medicine') {
       return GizlenecekOgeler['_Ilac'] == 1;
     } else if (menuName == 'toilet') {
@@ -1549,43 +1550,66 @@ class _AnaSayfaState extends State<AnaSayfa> with WidgetsBindingObserver {
   // }
 
   Widget _buildMenuItem(String title, String iconName, BuildContext context) {
+    // hangi menü hangi alanı kontrol edecek (0 ise ünlem çıkar)
+    final Map<String, int?> kontrolMap = {
+      S.of(context).duyurular: ogrenciBilgileri?.duyuru,
+      S.of(context).bulten: ogrenciBilgileri?.bulten,
+      S.of(context).boyKilo: ogrenciBilgileri?.boykilo,
+      S.of(context).yemekProgrami: ogrenciBilgileri?.beslenme,
+      S.of(context).etkinlik: ogrenciBilgileri?.etkinlik,
+      S.of(context).anket: ogrenciBilgileri?.anket,
+      S.of(context).haftalikDersSaati: ogrenciBilgileri?.dersSaat,
+      S.of(context).randevular: ogrenciBilgileri?.randevu,
+      S.of(context).dersProgrami:
+          ogrenciBilgileri?.mufredat, // ✅ Müfredat dersProgramına bağlı
+    };
+
+    // ünlem işareti gösterilecek mi?
+    bool showAlert = (kontrolMap[title] == 0);
+
     return InkWell(
       onTap: () {
+        if (title == S.of(context).dersProgrami) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => DersProgrami(
+                  okulId: _users["okulId"],
+                  ogrenciId: ogrenciId), // ✅ Müfredat da DersProgramı sayfasına yönlendiriyor
+            ),
+          );
+        }
+
         if (title == S.of(context).profil) {
           Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => Profil(
-                      ad: "${ogrenciBilgileri?.ad}",
-                      soyad: "${ogrenciBilgileri?.soyad}",
-                      ogrenciId: "$ogrenciId",
-                      sinifAd: "${ogrenciBilgileri?.sinifAd}",
-                      ogretmen: "${ogrenciBilgileri?.ogretmen}",
-                      dogumTarihi: "${ogrenciBilgileri?.dogumTarihi}",
-                    )),
+              builder: (context) => Profil(
+                ad: "${ogrenciBilgileri?.ad}",
+                soyad: "${ogrenciBilgileri?.soyad}",
+                ogrenciId: "$ogrenciId",
+                sinifAd: "${ogrenciBilgileri?.sinifAd}",
+                ogretmen: "${ogrenciBilgileri?.ogretmen}",
+                dogumTarihi: "${ogrenciBilgileri?.dogumTarihi}",
+              ),
+            ),
           );
         }
         if (title == S.of(context).zil) {
-          // Navigator.push(
-          //   context,
-          //   MaterialPageRoute(builder: (context) => Zil()),
-          // );
           _showDialogZil();
         }
         if (title == S.of(context).aidat) {
           Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => OdemePage(ogrenciId: ogrenciId),
-                //builder: (context) => OdemePage(),
-              ));
+            context,
+            MaterialPageRoute(
+                builder: (context) => OdemePage(ogrenciId: ogrenciId)),
+          );
         }
         if (title == S.of(context).boyKilo) {
           Navigator.push(
             context,
             MaterialPageRoute(
                 builder: (context) => BoyKilo(ogrenciId: ogrenciId)),
-            //builder: (context) => BoyKilo(ogrenciId: ogrenciBilgileri?.id ?? 0),
           );
         }
         if (title == S.of(context).yoklama) {
@@ -1599,23 +1623,23 @@ class _AnaSayfaState extends State<AnaSayfa> with WidgetsBindingObserver {
           Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => DersProgrami(
-                      okulId: _users["okulId"],
-                    )),
+                builder: (context) => DersProgrami(okulId: _users["okulId"], ogrenciId: ogrenciId)),
           );
         }
         if (title == S.of(context).duyurular) {
           Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => Duyurular(okulId: _users["okulId"])),
+                builder: (context) => Duyurular(okulId: _users["okulId"],
+                    ogrenciId: ogrenciId)),
           );
         }
         if (title == S.of(context).randevular) {
           Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => Randevu(VeliId: _users['id'])),
+                builder: (context) => Randevu(VeliId: _users['id'],
+                    ogrenciId: ogrenciId)),
           );
         }
         if (title == S.of(context).karne) {
@@ -1629,62 +1653,101 @@ class _AnaSayfaState extends State<AnaSayfa> with WidgetsBindingObserver {
           Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => YemekProgrami(okulId: _users["okulId"])),
+                builder: (context) => YemekProgrami(okulId: _users["okulId"], ogrenciId: ogrenciId)),
           );
         }
+
         if (title == S.of(context).bulten) {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => Bulten(_users["okulId"])),
+            MaterialPageRoute(builder: (context) => Bulten(_users["okulId"], ogrenciId)),
           );
         }
         if (title == S.of(context).saglik) {
           Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => Saglik(
-                      ogrenciId: ogrenciId,
-                      isim: "${ogrenciBilgileri?.ad}",
-                      soyisim: "${ogrenciBilgileri?.soyad}",
-                      ilacBilgisi: "${ogrenciBilgileri?.ilacAdi}",
-                      ilacSaati: "${ogrenciBilgileri?.ilacSaati}",
-                      alerjiDurumu: "${ogrenciBilgileri?.alerji}",
-                      kronikHastalikDurumu: "${ogrenciBilgileri?.hastalik}")));
+            context,
+            MaterialPageRoute(
+              builder: (context) => Saglik(
+                ogrenciId: ogrenciId,
+                isim: "${ogrenciBilgileri?.ad}",
+                soyisim: "${ogrenciBilgileri?.soyad}",
+                ilacBilgisi: "${ogrenciBilgileri?.ilacAdi}",
+                ilacSaati: "${ogrenciBilgileri?.ilacSaati}",
+                alerjiDurumu: "${ogrenciBilgileri?.alerji}",
+                kronikHastalikDurumu: "${ogrenciBilgileri?.hastalik}",
+              ),
+            ),
+          );
         }
         if (title == S.of(context).etkinlik) {
           Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => EtkinlikAnaSayfasi(
-                      ogrenciId: ogrenciId,
-                    )),
+                builder: (context) => EtkinlikAnaSayfasi(ogrenciId: ogrenciId)),
           );
         }
         if (title == S.of(context).anket) {
           Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => AnketSayfasi(VeliId: _users['id'])),
+                builder: (context) => AnketSayfasi(VeliId: _users['id'],
+                    ogrenciId: ogrenciId)),
           );
         }
         if (title == S.of(context).haftalikDersSaati) {
-          //_openPDF();
           Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => DersEkrani(okulId: _users["okulId"])),
+                builder: (context) => DersEkrani(okulId: _users["okulId"],
+                    ogrenciId: ogrenciId)),
           );
         }
       },
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset(
-            'assets/icon/$iconName',
-            width: 64,
-            height: 64,
-            fit: BoxFit.contain,
-            // color: primaryColor300,
+          Stack(
+            clipBehavior: Clip.none, // taşmasına izin ver
+
+            children: [
+              Image.asset(
+                'assets/icon/$iconName',
+                width: 64,
+                height: 64,
+                fit: BoxFit.contain,
+              ),
+              if (showAlert)
+                Positioned(
+                  left: -8, // biraz daha dışarı taşır
+                  top: -8, // biraz daha yukarı taşır
+                  child: Container(
+                    width: 28,
+                    height: 28,
+                    decoration: BoxDecoration(
+                      color: Colors.redAccent.shade700,
+                      shape: BoxShape.circle,
+                      border: Border.all(color: Colors.white, width: 2),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black45,
+                          offset: Offset(0, 3),
+                          blurRadius: 6,
+                        ),
+                      ],
+                    ),
+                    // child: Center(
+                    //   child: Container(
+                    //     width: 15,
+                    //     height: 15,
+                    //     decoration: BoxDecoration(
+                    //       color: Colors.white,
+                    //       shape: BoxShape.circle,
+                    //     ),
+                    //   ),
+                    // ),
+                  ),
+                ),
+            ],
           ),
           SizedBox(height: 8),
           Text(

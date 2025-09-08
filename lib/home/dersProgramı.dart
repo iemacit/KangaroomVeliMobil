@@ -11,8 +11,9 @@ import 'package:kangaroom/generated/l10n.dart';
 
 class DersProgrami extends StatefulWidget {
   final int okulId;
+  final int ogrenciId;
 
-  DersProgrami({required this.okulId});
+  DersProgrami({required this.okulId, required this.ogrenciId});
 
   @override
   State<DersProgrami> createState() => _DersProgramiState();
@@ -29,6 +30,7 @@ class _DersProgramiState extends State<DersProgrami> {
     _baseurl =
         "http://37.148.210.227:8001/api/KangaroomDersProgramPdf/DersProgram/${widget.okulId}"; // Initialize here
     _fetchitems();
+    _sendMufredatOkundu(widget.ogrenciId);
   }
 
   void changeloading() {
@@ -36,7 +38,15 @@ class _DersProgramiState extends State<DersProgrami> {
       _isloading = !_isloading;
     });
   }
-
+  Future<void> _sendMufredatOkundu(int ogrenciId) async {
+    try {
+        await Dio().post(
+          "http://37.148.210.227:8001/api/KangaroomDersProgramPdf/mufredatOkundu/$ogrenciId",
+        );
+      } catch (e) {
+        print("Error sending mufredatOkundu: $e");
+      }
+  }
   Future<void> _fetchitems() async {
     try {
       changeloading();

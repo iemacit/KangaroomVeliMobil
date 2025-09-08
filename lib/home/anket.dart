@@ -5,10 +5,13 @@ import 'package:kangaroom/generated/l10n.dart';
 import 'package:kangaroom/model/anket_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:kangaroom/theme.dart';
+import 'package:dio/dio.dart';
 
 class AnketSayfasi extends StatefulWidget {
   final int VeliId;
-  const AnketSayfasi({super.key, required this.VeliId});
+  final int? ogrenciId;
+
+  const AnketSayfasi({super.key, required this.VeliId, this.ogrenciId});
 
   @override
   State<AnketSayfasi> createState() => _AnketSayfasiState();
@@ -33,7 +36,17 @@ class _AnketSayfasiState extends State<AnketSayfasi> {
   void initState() {
     super.initState();
     fetchAnketler(widget.VeliId);
+    _sendAnketOkundu(widget.ogrenciId!);
   }
+   Future<void> _sendAnketOkundu(int ogrenciId) async {
+    try {
+        await Dio().post(
+          "http://37.148.210.227:8001/api/KangaroomAnket/anketOkundu/$ogrenciId",
+        );
+      } catch (e) {
+        print("Error sending anketOkundu: $e");
+      }
+    }
 
   Future<void> fetchAnketler(int veliId) async {
     try {

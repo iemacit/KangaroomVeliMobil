@@ -28,15 +28,26 @@ class _BoyKiloState extends State<BoyKilo> with TickerProviderStateMixin {
   int _selectedYear = DateTime.now().year;
 
   @override
-  void initState() {
-    super.initState();
-    _motionTabBarController = MotionTabBarController(
-      initialIndex: 0,
-      length: 3,
-      vsync: this,
+void initState() {
+  super.initState();
+  _motionTabBarController = MotionTabBarController(
+    initialIndex: 0,
+    length: 3,
+    vsync: this,
+  );
+  _fetchItems(widget.ogrenciId);
+  _sendBoyKiloOkundu(widget.ogrenciId); // <-- Bunu ekle
+}
+
+Future<void> _sendBoyKiloOkundu(int ogrenciId) async {
+  try {
+    await Dio().post(
+      "http://37.148.210.227:8001/api/KangaroomBoyKilo/boyKiloOkundu/$ogrenciId",
     );
-    _fetchItems(widget.ogrenciId);
+  } catch (e) {
+    print("Error sending boyKiloOkundu: $e");
   }
+}
 
   Future<void> _fetchItems(int ogrenciId) async {
     try {

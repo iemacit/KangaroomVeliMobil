@@ -30,7 +30,16 @@ class OgrenciBilgileri {
   String? ikindibas;
   String? ikindibit;
   int? mudur;
+  int? duyuru;
+  int? bulten;
   int? muhasebeci;
+  int? boykilo;
+  int? beslenme;
+  int? etkinlik;
+  int? anket;
+  int? dersSaat;
+  int? mufredat;
+  int? randevu;
 
   OgrenciBilgileri({
     this.id,
@@ -65,6 +74,15 @@ class OgrenciBilgileri {
     this.ikindibit,
     this.mudur,
     this.muhasebeci,
+    this.duyuru,
+    this.bulten,
+    this.boykilo,
+    this.beslenme,
+    this.etkinlik,
+    this.anket,
+    this.dersSaat,
+    this.mufredat,
+    this.randevu,
   });
 
   OgrenciBilgileri.fromJson(Map<String, dynamic> json) {
@@ -100,5 +118,14 @@ class OgrenciBilgileri {
     ikindibit = json['ikindibit'];
     mudur = json['mudur'];
     muhasebeci = json['muhasebeci'];
+    duyuru = json['duyuru'];
+    bulten = json['bulten'];
+    boykilo = json['boyKilo'];
+    beslenme = json['beslenme'];
+    etkinlik = json['etkinlik'];
+    anket = json['anket'];
+    dersSaat = json['dersSaat'];
+    mufredat = json['mufredat'];
+    randevu = json['randevu'];
   }
 }

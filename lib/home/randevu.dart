@@ -10,8 +10,9 @@ import 'package:kangaroom/generated/l10n.dart';
 
 class Randevu extends StatefulWidget {
   final int VeliId;
+  final int? ogrenciId;
 
-  Randevu({required this.VeliId});
+  Randevu({required this.VeliId, this.ogrenciId});
 
   @override
   State<Randevu> createState() => _RandevuState();
@@ -27,14 +28,23 @@ class _RandevuState extends State<Randevu> {
   void initState() {
     super.initState();
     _fetchItems();
+    _sendRandevuOkundu(widget.VeliId);
   }
-
+ 
   void _changeLoading() {
     setState(() {
       _isLoading = !_isLoading;
     });
   }
-
+   Future<void> _sendRandevuOkundu(int ogrenciId) async {
+  try {
+      await Dio().post(
+        "http://37.148.210.227:8001/api/KangaroomRandevu/randevuOkundu/$ogrenciId",
+      );
+    } catch (e) {
+      print("Error sending randevuOkundu: $e");
+    }
+  }
   Future<void> _fetchItems() async {
     try {
       _changeLoading();

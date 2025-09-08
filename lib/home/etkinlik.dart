@@ -30,7 +30,7 @@ class _EtkinlikState extends State<Etkinlik> {
     super.initState();
     //  fetchActivities(widget.ogrenciId);
   }
-
+  
   Future<void> fetchActivities(int ogrenciId) async {
     try {
       final response = await http.get(Uri.parse(
