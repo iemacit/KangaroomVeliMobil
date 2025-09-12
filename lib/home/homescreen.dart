@@ -52,7 +52,7 @@ class _AnaSayfaState extends State<AnaSayfa> with WidgetsBindingObserver {
   Map<String, dynamic> _users = {};
   List<HakkimizdaModel>? _items;
   OgrenciBilgileri? ogrenciBilgileri;
-  double yildizsabah = 0;
+  double yildizsabah = 0;   
   double yildizogle = 0;
   double yildizikindi = 0;
   OgretmenModel? ogretmen;
@@ -72,6 +72,7 @@ class _AnaSayfaState extends State<AnaSayfa> with WidgetsBindingObserver {
   //TextEditingController _gonderilenMesajtext = TextEditingController();
   List<KangaroomMesaj> newmesage = [];
   TextEditingController _controller = TextEditingController();
+  TextEditingController _aciklamaController = TextEditingController();
   String _selectedTime = '5dk';
   String veli = "veli";
   Map<String, dynamic> GizlenecekOgeler = {};
@@ -87,6 +88,7 @@ class _AnaSayfaState extends State<AnaSayfa> with WidgetsBindingObserver {
   Timer? sliderTimer;
   late PageController _pageController;
   int _currentPage = 0;
+  bool _aciklamaModalGosterildi = false;
   String _formatTime(String? time) {
     if (time == null || time.isEmpty) {
       return S.of(context).yok;
@@ -117,7 +119,7 @@ class _AnaSayfaState extends State<AnaSayfa> with WidgetsBindingObserver {
     WidgetsBinding.instance.addObserver(this);
     _pageController = PageController();
     _clearCacheIfNeeded();
-
+     _checkAciklamaModal();
     _loadUserData().then((_) {
       loadGizlenecekOgeler();
       getAccessTokenOgretmen();
@@ -137,7 +139,14 @@ class _AnaSayfaState extends State<AnaSayfa> with WidgetsBindingObserver {
       });
     });
   }
-
+  void _checkAciklamaModal() async {
+    String todayKey = 'aciklamaModalGosterildi_${DateTime.now().toIso8601String().substring(0,10)}';
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool gosterildi = prefs.getBool(todayKey) ?? false;
+    setState(() {
+      _aciklamaModalGosterildi = gosterildi;
+    });
+  }
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
@@ -549,6 +558,119 @@ class _AnaSayfaState extends State<AnaSayfa> with WidgetsBindingObserver {
     }
   }
 
+  void _showAciklamaModal() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(
+            'Öğrencinizin okula gelmeme sebebini giriniz',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+            ),
+          ),
+          contentPadding: EdgeInsets.only(left: 24, right: 24, top: 20, bottom: 0),
+          content: TextField(
+            controller: _aciklamaController,
+            maxLines: 3,
+            decoration: InputDecoration(hintText: 'Açıklama...'),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () async {
+                SharedPreferences prefs = await SharedPreferences.getInstance();
+                await prefs.setBool('aciklamaModalGosterildi', true);
+                setState(() {
+                  _aciklamaModalGosterildi = true;
+                });
+                Navigator.of(context).pop();
+              },
+              child: Text('İptal'),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                bool success = await OgrenciYoklamaBilgiGonder(_aciklamaController.text);
+                if (success) {
+                  String todayKey = 'aciklamaModalGosterildi_${DateTime.now().toIso8601String().substring(0,10)}';
+                  SharedPreferences prefs = await SharedPreferences.getInstance();
+                  await prefs.setBool(todayKey, true);
+                  setState(() {
+                    _aciklamaModalGosterildi = true;
+                  });
+                  Navigator.of(context).pop();
+                  _aciklamaController.clear();
+                }
+              },
+              child: Text('Gönder'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: primaryColor100,
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<bool> OgrenciYoklamaBilgiGonder(String icerik) async {
+    final String apiUrl = 'http://37.148.210.227:8001/api/KangaroomMesaj';
+    try {
+      final kime = await OgretmenBilgileriGetir(ogrenciId);
+
+      final response = await http.post(
+        Uri.parse(apiUrl),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, dynamic>{
+          "id": 0,
+          "icerik": icerik,
+          "createUserId":ogrenciId,
+          "createDate": DateTime.now().toIso8601String(),
+          "kime": kime,
+          "gondericiTur": 6,
+          "statu": 1,
+          "okundu": 0,
+        }),
+      );
+      if (response.statusCode == 201) {
+        //    final responseData = jsonDecode(response.body);
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("Mesaj Gönderildi"),
+            backgroundColor: Colors.green,
+          ),
+        );
+        setState(() {
+          veli = "";
+        });
+        await yoklamaNotification(icerik);
+        return true;
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("Mesaj Gönderilmedi"),
+            backgroundColor: Colors.red,
+          ),
+        );
+        return false;
+      }
+    } catch (e) {
+      print(
+          '****************************************************************************** $e');
+      print('HTTP isteği sırasında bir hata oluştu: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Mesaj Gönderilmedi"),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return false;
+    }
+  }
+
   Future<void> zilGonder() async {
     final String apiUrl = 'http://37.148.210.227:8001/api/KangaroomZil';
     try {
@@ -629,7 +751,44 @@ class _AnaSayfaState extends State<AnaSayfa> with WidgetsBindingObserver {
       print("Error loading user data: $e");
     }
   }
+  Future<void> yoklamaNotification(String icerik) async {
+    final token = await OgretmenBilgileriGetirToken(ogrenciId);
 
+    final String apiUrl =
+        'https://fcm.googleapis.com/v1/projects/kangaroommobileogretmen/messages:send';
+
+    try {
+      final response = await http.post(
+        Uri.parse(apiUrl),
+        headers: <String, String>{
+          'Authorization': 'Bearer $accessToken',
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode({
+          "message": {
+            "token": token,
+            "notification": {
+              "title": ogrenciAd + " " + ogrenciSoyad,
+              "body": icerik,
+            },
+            // opsiyonel: Android ayarları
+            "android": {
+              "priority": "HIGH",
+            },
+          }
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        print("Mesaj gönderildi: $token");
+      } else {
+        print("Mesaj gönderilemedi: ${response.statusCode}");
+        print("Body: ${response.body}");
+      }
+    } catch (e) {
+      print("Hata: $e");
+    }
+  }
   Future<void> notification() async {
     final token = await OgretmenBilgileriGetirToken(ogrenciId);
 
@@ -702,6 +861,12 @@ class _AnaSayfaState extends State<AnaSayfa> with WidgetsBindingObserver {
     var oran = MediaQuery.of(context);
     var genislik = oran.size.width;
     var uzunluk = oran.size.height;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!tatilMi && yoklama == false && !_aciklamaModalGosterildi) {
+        _aciklamaModalGosterildi = true;
+        _showAciklamaModal();
+      }
+    });
     return Scaffold(
       appBar: AppBar(
         title: Container(
@@ -1575,7 +1740,8 @@ class _AnaSayfaState extends State<AnaSayfa> with WidgetsBindingObserver {
             MaterialPageRoute(
               builder: (context) => DersProgrami(
                   okulId: _users["okulId"],
-                  ogrenciId: ogrenciId), // ✅ Müfredat da DersProgramı sayfasına yönlendiriyor
+                  ogrenciId:
+                      ogrenciId), // ✅ Müfredat da DersProgramı sayfasına yönlendiriyor
             ),
           );
         }
@@ -1623,23 +1789,24 @@ class _AnaSayfaState extends State<AnaSayfa> with WidgetsBindingObserver {
           Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => DersProgrami(okulId: _users["okulId"], ogrenciId: ogrenciId)),
+                builder: (context) => DersProgrami(
+                    okulId: _users["okulId"], ogrenciId: ogrenciId)),
           );
         }
         if (title == S.of(context).duyurular) {
           Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => Duyurular(okulId: _users["okulId"],
-                    ogrenciId: ogrenciId)),
+                builder: (context) =>
+                    Duyurular(okulId: _users["okulId"], ogrenciId: ogrenciId)),
           );
         }
         if (title == S.of(context).randevular) {
           Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => Randevu(VeliId: _users['id'],
-                    ogrenciId: ogrenciId)),
+                builder: (context) =>
+                    Randevu(VeliId: _users['id'], ogrenciId: ogrenciId)),
           );
         }
         if (title == S.of(context).karne) {
@@ -1653,14 +1820,16 @@ class _AnaSayfaState extends State<AnaSayfa> with WidgetsBindingObserver {
           Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => YemekProgrami(okulId: _users["okulId"], ogrenciId: ogrenciId)),
+                builder: (context) => YemekProgrami(
+                    okulId: _users["okulId"], ogrenciId: ogrenciId)),
           );
         }
 
         if (title == S.of(context).bulten) {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => Bulten(_users["okulId"], ogrenciId)),
+            MaterialPageRoute(
+                builder: (context) => Bulten(_users["okulId"], ogrenciId)),
           );
         }
         if (title == S.of(context).saglik) {
@@ -1690,16 +1859,16 @@ class _AnaSayfaState extends State<AnaSayfa> with WidgetsBindingObserver {
           Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => AnketSayfasi(VeliId: _users['id'],
-                    ogrenciId: ogrenciId)),
+                builder: (context) =>
+                    AnketSayfasi(VeliId: _users['id'], ogrenciId: ogrenciId)),
           );
         }
         if (title == S.of(context).haftalikDersSaati) {
           Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => DersEkrani(okulId: _users["okulId"],
-                    ogrenciId: ogrenciId)),
+                builder: (context) =>
+                    DersEkrani(okulId: _users["okulId"], ogrenciId: ogrenciId)),
           );
         }
       },
@@ -2086,9 +2255,11 @@ class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
             () {}); // Ensure the first frame is shown after the video is initialized
       });
     _controller.setLooping(true);
+    
+
     //_controller.play(); // Auto play the video
   }
-
+  
   @override
   void dispose() {
     super.dispose();

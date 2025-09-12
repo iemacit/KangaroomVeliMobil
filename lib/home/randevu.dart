@@ -28,16 +28,17 @@ class _RandevuState extends State<Randevu> {
   void initState() {
     super.initState();
     _fetchItems();
-    _sendRandevuOkundu(widget.VeliId);
+    _sendRandevuOkundu(widget.ogrenciId);
   }
- 
+
   void _changeLoading() {
     setState(() {
       _isLoading = !_isLoading;
     });
   }
-   Future<void> _sendRandevuOkundu(int ogrenciId) async {
-  try {
+
+  Future<void> _sendRandevuOkundu(int? ogrenciId) async {
+    try {
       await Dio().post(
         "http://37.148.210.227:8001/api/KangaroomRandevu/randevuOkundu/$ogrenciId",
       );
@@ -45,6 +46,7 @@ class _RandevuState extends State<Randevu> {
       print("Error sending randevuOkundu: $e");
     }
   }
+
   Future<void> _fetchItems() async {
     try {
       _changeLoading();
